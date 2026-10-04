@@ -6,7 +6,7 @@
   --cyan: #22d3ee;
   --violet: #7C6CFF;
   --violet-deep: #7466E8;
-  --gutter: clamp(20px, 5vw, 72px);
+  --gutter: clamp(24px, 5vw, 72px);
   --font-text: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
   --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
   --font-serif: 'Instrument Serif', Georgia, serif;
@@ -21,13 +21,13 @@ html, body {
 }
 
 a { color: var(--cyan); text-decoration: underline; text-underline-offset: 3px; }
-a:hover { color: var(--text); }
 a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
 ::selection { background: rgba(124, 108, 255, .4); }
 
 .root {
   position: relative;
   min-height: 100vh;
+  min-height: 100svh;
   background: var(--bg);
   font-family: var(--font-text);
 }
@@ -46,7 +46,6 @@ a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
 .header-date { font-size: 15px; font-weight: 500; color: var(--muted); white-space: nowrap; }
 .header-nav { display: flex; align-items: center; gap: 24px; }
 .nav-link { font-size: 15px; font-weight: 500; color: var(--muted); text-decoration: none; white-space: nowrap; }
-.nav-link:hover { color: var(--text); }
 
 /* Pill buttons */
 .pill {
@@ -56,11 +55,6 @@ a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
   background: rgba(21, 27, 44, .35);
   font-weight: 500; color: var(--muted); text-decoration: none; white-space: nowrap;
   transition: background .25s, border-color .25s, color .25s;
-}
-.pill:hover {
-  border-color: rgba(124, 108, 255, .45);
-  background: rgba(124, 108, 255, .08);
-  color: var(--text);
 }
 .pill-sm { padding: 9px 16px; font-size: 14px; }
 .pill-lg {
@@ -77,15 +71,15 @@ a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
   font-size: 13px; font-weight: 500; color: var(--text); white-space: nowrap;
   pointer-events: none; box-shadow: 0 8px 24px rgba(0, 0, 0, .35);
 }
-.tip-wrap:hover .tip, .tip-wrap:focus-within .tip, .tip-wrap.is-tapped .tip { display: block; }
+.tip-wrap:has(:focus-visible) .tip, .tip-wrap.is-tapped .tip { display: block; }
 .tip-below { right: 0; top: calc(100% + 10px); }
 .tip-above { left: 50%; bottom: calc(100% + 10px); transform: translateX(-50%); }
 
 /* Hero */
 .hero {
-  position: relative; z-index: 1; min-height: 100vh;
+  position: relative; z-index: 1; min-height: 100vh; min-height: 100svh;
   display: flex; flex-direction: column; justify-content: flex-end;
-  padding: 140px var(--gutter) clamp(56px, 10vh, 112px);
+  padding: 140px var(--gutter) calc(clamp(56px, 10svh, 112px) + env(safe-area-inset-bottom, 0px));
   box-sizing: border-box;
 }
 .hero-inner { display: flex; flex-direction: column; gap: 22px; max-width: 1400px; }
@@ -121,11 +115,10 @@ a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
   display: inline-flex; align-items: center; gap: 10px;
   font-size: 16px; font-weight: 500; color: var(--muted); text-decoration: none; white-space: nowrap;
 }
-.text-cta:hover { color: var(--cyan); }
 
 /* Sponsors */
 .sponsors {
-  position: relative; z-index: 1; min-height: 100vh;
+  position: relative; z-index: 1; min-height: 100vh; min-height: 100svh;
   padding: clamp(88px, 12vh, 128px) var(--gutter);
   box-sizing: border-box;
   display: flex; flex-direction: column; justify-content: center;
@@ -162,7 +155,6 @@ a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
   display: flex; align-items: center; justify-content: center;
   height: clamp(170px, 24vh, 240px);
 }
-.card-ai:hover { border-color: rgba(124, 108, 255, .5); }
 .blur-ai {
   font-family: var(--font-display); font-weight: 600;
   font-size: clamp(34px, 4.4vw, 56px); letter-spacing: -.04em; filter: blur(22px);
@@ -173,7 +165,6 @@ a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
   padding: 20px 22px;
   display: flex; flex-direction: column; justify-content: space-between;
 }
-.card-track:hover { border-color: rgba(34, 211, 238, .45); }
 .track-num { font-size: 13px; font-weight: 500; color: var(--muted); }
 .blur-track { display: flex; flex-direction: column; gap: 8px; filter: blur(16px); }
 .track-name { font-weight: 600; font-size: 28px; letter-spacing: -.03em; color: var(--text); }
@@ -186,18 +177,19 @@ a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
   border-color: rgba(232, 235, 244, .08);
   border-radius: 18px;
 }
-.card-partner:hover { border-color: rgba(232, 235, 244, .22); }
 .blur-partner { font-weight: 600; font-size: 22px; letter-spacing: -.02em; filter: blur(14px); }
 
 /* Footer */
 .site-footer {
   position: relative; z-index: 1;
   border-top: 1px solid rgba(232, 235, 244, .08);
-  padding: 26px var(--gutter);
+  padding: 26px var(--gutter) calc(26px + env(safe-area-inset-bottom, 0px));
   display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px;
   font-size: 14px; font-weight: 500; color: var(--muted);
 }
 .footer-brand { display: flex; align-items: center; gap: 12px; }
+.footer-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 28px; }
+.footer-email { color: var(--muted); text-decoration: none; }
 .footer-logo { height: 24px; width: auto; display: block; opacity: .85; }
 
 /* Scroll reveal: only hidden once main.js has opted in, so content never stays invisible */
@@ -208,3 +200,24 @@ a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
   transition-delay: calc(120ms + var(--i, 0) * 130ms);
 }
 .reveal-ready [data-reveal].is-in { opacity: 1; transform: none; }
+
+/* Hover effects only where a real pointer can hover, so taps don't leave them stuck on */
+@media (hover: hover) {
+  a:hover { color: var(--text); }
+  .nav-link:hover { color: var(--text); }
+  .pill:hover {
+    border-color: rgba(124, 108, 255, .45);
+    background: rgba(124, 108, 255, .08);
+    color: var(--text);
+  }
+  .text-cta:hover { color: var(--cyan); }
+  .card-ai:hover { border-color: rgba(124, 108, 255, .5); }
+  .card-track:hover { border-color: rgba(34, 211, 238, .45); }
+  .card-partner:hover { border-color: rgba(232, 235, 244, .22); }
+  .tip-wrap:hover .tip { display: block; }
+}
+
+@media (max-width: 600px) {
+  .site-footer { flex-direction: column; align-items: flex-start; }
+  .footer-meta { flex-direction: column; align-items: flex-start; }
+}
