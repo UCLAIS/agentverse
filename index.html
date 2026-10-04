@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AgentVerse · UCL AI Society Hackathon</title>
+<meta name="description" content="AgentVerse — UCL's premier AI hackathon, presented by UCL AI Society. 7–8 November 2026.">
+<meta name="theme-color" content="#0b0f1a">
+<link rel="icon" type="image/png" href="assets/aisoc-logo-light.png">
+<meta property="og:title" content="AgentVerse · UCL AI Society Hackathon">
+<meta property="og:description" content="UCL's premier AI hackathon. 7–8 November 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="root" id="root">
+
+  <canvas id="stars" class="fx fx-stars" aria-hidden="true"></canvas>
+  <canvas id="trail" class="fx fx-trail" aria-hidden="true"></canvas>
+
+  <header class="site-header">
+    <span class="header-date">7–8 November 2026</span>
+    <nav class="header-nav">
+      <a href="#sponsors" class="nav-link js-go-sponsors">Sponsors</a>
+      <div class="tip-wrap">
+        <a href="#" class="pill pill-sm js-noop" aria-describedby="tip-head">Sign up</a>
+        <span role="tooltip" id="tip-head" class="tip tip-below">Coming soon</span>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" data-screen-label="Hero">
+      <div class="hero-inner">
+        <div data-reveal="0" class="hero-presents">
+          <img src="assets/aisoc-logo-light.png" alt="UCL AI Society" class="hero-logo">
+          <span>UCL AI Society presents</span>
+        </div>
+
+        <h1 data-reveal="1" class="hero-title">Agent<span class="hero-title-serif">Verse</span></h1>
+
+        <div data-reveal="2" class="hero-sub">
+          <p>UCL's premier AI Hackathon</p>
+          <p class="accent">7–8 November 2026</p>
+        </div>
+
+        <div data-reveal="3" class="hero-ctas">
+          <div class="tip-wrap">
+            <a href="#" class="pill pill-lg js-noop" aria-describedby="tip-hero">
+              <span>Sign up now</span>
+              <span aria-hidden="true">→</span>
+            </a>
+            <span role="tooltip" id="tip-hero" class="tip tip-above">Coming soon</span>
+          </div>
+          <a href="#sponsors" class="text-cta js-go-sponsors">
+            <span>Meet our sponsors</span>
+            <span aria-hidden="true">↓</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="sponsors" class="sponsors" data-screen-label="Sponsors">
+      <div data-reveal="0" class="sponsors-head">
+        <div class="sponsors-head-text">
+          <span class="eyebrow">Proudly powered by</span>
+          <h2>Our sponsors</h2>
+        </div>
+        <p class="muted-lg">To be revealed soon.</p>
+      </div>
+
+      <div data-reveal="1" class="tier">
+        <div class="tier-label"><span class="dot" style="background:#22d3ee"></span><span>AI Partner</span></div>
+        <div class="card card-ai" aria-label="AI Partner to be revealed">
+          <span aria-hidden="true" class="blurred blur-ai">DeepMind</span>
+        </div>
+      </div>
+
+      <div data-reveal="2" class="tier">
+        <div class="tier-label"><span class="dot" style="background:#7C6CFF"></span><span>Track Partners</span></div>
+        <div class="row">
+          <div class="card card-track" aria-label="Track partner to be revealed">
+            <span class="track-num">Track 1</span>
+            <div aria-hidden="true" class="blurred blur-track">
+              <span class="track-name">Amazon Web Services</span>
+              <span class="track-theme">Agents for Science</span>
+            </div>
+          </div>
+          <div class="card card-track" aria-label="Track partner to be revealed">
+            <span class="track-num">Track 2</span>
+            <div aria-hidden="true" class="blurred blur-track">
+              <span class="track-name">Nvidia</span>
+              <span class="track-theme">Multi-agent Systems</span>
+            </div>
+          </div>
+          <div class="card card-track" aria-label="Track partner to be revealed">
+            <span class="track-num">Track 3</span>
+            <div aria-hidden="true" class="blurred blur-track">
+              <span class="track-name">Canva</span>
+              <span class="track-theme">Agents for Good</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div data-reveal="3" class="tier">
+        <div class="tier-label"><span class="dot" style="background:#8A93A8"></span><span>Partners</span></div>
+        <div class="row">
+          <div class="card card-partner" aria-label="Partner to be revealed"><span aria-hidden="true" class="blurred blur-partner">Partner</span></div>
+          <div class="card card-partner" aria-label="Partner to be revealed"><span aria-hidden="true" class="blurred blur-partner">Sponsor co</span></div>
+          <div class="card card-partner" aria-label="Partner to be revealed"><span aria-hidden="true" class="blurred blur-partner">Partner</span></div>
+          <div class="card card-partner" aria-label="Partner to be revealed"><span aria-hidden="true" class="blurred blur-partner">Sponsor</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-brand">
+      <img src="assets/aisoc-logo-light.png" alt="" class="footer-logo">
+      <span>UCL AI Society</span>
+    </div>
+    <span>AgentVerse · 7–8 November 2026</span>
+  </footer>
+</div>
+<script src="main.js"></script>
+</body>
+</html>
