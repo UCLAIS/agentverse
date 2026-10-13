@@ -9,23 +9,39 @@
     showMilkyWay: true,
     showTrail: true,
     trailIntensity: 1,      // 0.3 – 2.5
-    starCount: 320          // 40 – 800
+    starCount: 520          // 40 – 800
   };
 
-  const PAL = ['124,108,255', '154,143,255', '34,211,238', '59,74,168', '90,79,207', '28,127,154', '186,178,255'];
+  const PAL = ['112,82,240', '180,166,255', '34,208,232', '85,62,190', '148,123,255', '250,249,255'];
   const TAU = 6.283;
 
   const root = document.getElementById('root');
   const starsCanvas = document.getElementById('stars');
   const trailCanvas = document.getElementById('trail');
-  const sponsors = document.getElementById('sponsors');
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   let W = 0, H = 0, dpr = 1;
   let stars = [], parts = [], pix = [], last = null, lastCell = null;
-  let meteor = null, nextMeteor = 5000, groups = [], pulses = [], nextPulse = 0, nextHand = 2500;
+  let meteor = null, nextMeteor = 5000, groups = [];
   let comets = [], lt = 0, sky = null, skyH = 0, scrollRaf = 0;
+
+  // A persistent star layer spans the entire page underneath the moving sky.
+  // This also keeps every section atmospheric when animation is reduced.
+  function buildStarMap() {
+    const tile = document.createElement('canvas');
+    tile.width = tile.height = 1024;
+    const c = tile.getContext('2d');
+    let seed = 2026;
+    const rand = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+    for (let i = 0; i < 900; i++) {
+      const x = Math.floor(rand() * 1024), y = Math.floor(rand() * 1024);
+      const color = i % 13 === 0 ? PAL[2] : i % 7 === 0 ? PAL[1] : '244,242,255';
+      c.fillStyle = `rgba(${color},${.12 + rand() * .35})`;
+      c.fillRect(x, y, 1, 1);
+    }
+    root.style.setProperty('--star-map', `url("${tile.toDataURL()}")`);
+  }
 
   /* ---------- Sizing ---------- */
 
@@ -37,7 +53,65 @@
       c.width = W * dpr; c.height = H * dpr;
       c.getContext('2d').setTransform(dpr, 0, 0, dpr, 0, 0);
     });
-    makeStars(); buildSky(); buildAgents();
+    makeStars(); buildSky(); buildAgents(); drawLandscapes();
+    if (reduced) draw(0);
+  }
+
+  /* ---------- Pixel nebula horizons, rendered once per resize ---------- */
+
+  function drawLandscapes() {
+    document.querySelectorAll('[data-landscape]').forEach(canvas => {
+      const w = canvas.clientWidth, h = canvas.clientHeight;
+      if (!w || !h) return;
+      canvas.width = w * dpr; canvas.height = h * dpr;
+      const c = canvas.getContext('2d'); c.scale(dpr, dpr);
+      const noise = (x, y) => {
+        const v = Math.sin(x * 12.9898 + y * 78.233) * 43758.5453;
+        return v - Math.floor(v);
+      };
+      const edge = (x, layer) => h * (.35 + layer * .12)
+        + Math.sin(x / w * 13 + layer * 1.8) * h * .07
+        + Math.sin(x / w * 39 + layer) * h * .022
+        + Math.sin(x / w * 113 + layer * .4) * h * .009;
+      if (canvas.dataset.landscape === 'nebula') {
+        for (let x = 0; x < w; x += 3) {
+          const mid = h * .5 + Math.sin(x / w * 8) * h * .13 + Math.sin(x / w * 29) * h * .035;
+          for (let y = 0; y < h; y += 3) {
+            const spread = Math.exp(-Math.pow((y - mid) / (h * .13), 2));
+            const alpha = spread * (.1 + noise(x, y) * .45);
+            if (alpha < .015) continue;
+            c.fillStyle = `rgba(144,109,255,${alpha})`;
+            c.fillRect(x, y, 3, 3);
+          }
+        }
+        return;
+      }
+      const colors = ['47,25,107', '76,43,154', '125,94,230', '75,45,147'];
+      colors.forEach((rgb, layer) => {
+        const gradient = c.createLinearGradient(0, h * .25, 0, h);
+        gradient.addColorStop(0, `rgba(${rgb},.85)`);
+        gradient.addColorStop(1, 'rgba(16,11,41,1)');
+        c.fillStyle = gradient; c.beginPath();
+        c.moveTo(0, h);
+        for (let x = 0; x <= w + 3; x += 3) c.lineTo(x, Math.round(edge(x, layer) / 2) * 2);
+        c.lineTo(w, h); c.closePath(); c.fill();
+        c.strokeStyle = layer === 2 ? 'rgba(180,166,255,.7)' : 'rgba(112,82,240,.4)';
+        c.lineWidth = 1; c.beginPath();
+        for (let x = 0; x <= w + 3; x += 3) {
+          const y = Math.round(edge(x, layer) / 2) * 2;
+          if (x === 0) c.moveTo(x, y); else c.lineTo(x, y);
+        }
+        c.stroke();
+      });
+      for (let x = 0; x < w; x += 3) {
+        const top = edge(x, 2);
+        for (let y = Math.ceil(top / 3) * 3; y < Math.min(h, top + h * .2); y += 3) {
+          if (noise(x, y) < .65) continue;
+          c.fillStyle = `rgba(180,166,255,${.22 * (1 - (y - top) / (h * .2))})`;
+          c.fillRect(x, y, 2, 2);
+        }
+      }
+    });
   }
 
   /* ---------- Cursor trail ---------- */
@@ -53,7 +127,7 @@
       for (let i = 0; i < n; i++) {
         const t = i / n, px = last.x + dx * t, py = last.y + dy * t;
         if (pixels) {
-          const cs = 7, gx = Math.floor(px / cs), gy = Math.floor(py / cs), key = gx + ',' + gy;
+          const cs = 4, gx = Math.floor(px / cs), gy = Math.floor(py / cs), key = gx + ',' + gy;
           if (key !== lastCell) {
             lastCell = key;
             pix.push({ gx, gy, cs, life: 1, c: PAL[Math.floor(Math.random() * PAL.length)] });
@@ -86,7 +160,7 @@
     }));
   }
 
-  /* ---------- Smooth scroll to sponsors ---------- */
+  /* ---------- Section navigation ---------- */
 
   function smoothTo(el) {
     if (!el) return;
@@ -136,7 +210,7 @@
       c.fillStyle = gr; c.beginPath(); c.arc(x, y, r, 0, TAU); c.fill();
     };
     c.globalCompositeOperation = 'lighter';
-    const tones = ['124,108,255', '34,170,200', '110,120,200', '70,90,170'];
+    const tones = ['112,82,240', '92,56,184', '148,123,255', '65,43,132'];
     for (let i = 0; i < 90; i++) {
       const s = (Math.random() - .5) * L, w = bw * wob(s);
       const [x, y] = at(s, g() * w * .9);
@@ -146,20 +220,20 @@
       const s = (Math.random() - .5) * L, w = bw * wob(s);
       const [x, y] = at(s, g() * w);
       c.fillStyle = `rgba(226,232,255,${.12 + Math.random() * .45})`;
-      c.beginPath(); c.arc(x, y, .2 + Math.random() * .5, 0, TAU); c.fill();
+      c.fillRect(Math.round(x), Math.round(y), 1, 1);
     }
     for (let i = 0; i < 1800; i++) {
       c.fillStyle = `rgba(226,232,255,${.08 + Math.random() * .28})`;
-      c.beginPath(); c.arc(Math.random() * W, Math.random() * h, .2 + Math.random() * .35, 0, TAU); c.fill();
+      c.fillRect(Math.floor(Math.random() * W), Math.floor(Math.random() * h), 1, 1);
     }
     c.globalCompositeOperation = 'source-over';
     for (let i = 0; i < 34; i++) {
       const s = (Math.random() - .5) * L, w = bw * wob(s);
       const [x, y] = at(s, g() * w * .25);
-      blob(x, y, W * (.025 + Math.random() * .05), '11,15,26', .35 + Math.random() * .25);
+      blob(x, y, W * (.025 + Math.random() * .05), '8,7,25', .35 + Math.random() * .25);
     }
     const vg = c.createRadialGradient(W * .5, h * .45, Math.min(W, h) * .3, W * .5, h * .45, Math.max(W, h) * .8);
-    vg.addColorStop(0, 'rgba(11,15,26,0)'); vg.addColorStop(1, 'rgba(11,15,26,.7)');
+    vg.addColorStop(0, 'rgba(8,7,25,0)'); vg.addColorStop(1, 'rgba(8,7,25,.7)');
     c.fillStyle = vg; c.fillRect(0, 0, W, h);
     const tile = document.createElement('canvas'); tile.width = tile.height = 140;
     const tc = tile.getContext('2d'), id = tc.createImageData(140, 140);
@@ -187,55 +261,25 @@
       if (Math.random() < .7) edges.push([nodes[0], nodes[Math.floor(n / 2)]]);
       return { cx, cy, R, nodes, edges, glow: 0, d: .1 + gi * .015 };
     });
-    pulses = [];
   }
 
   function drawAgents(c, t, sy) {
-    const k = last, pos = (nd, g) => [nd.x, nd.y - sy * g.d];
     for (const g of groups) {
-      const gy = g.cy - sy * g.d;
-      const near = k ? Math.max(0, 1 - Math.hypot(k.x - g.cx, k.y - gy) / (g.R * 2.2)) : 0;
-      g.glow += (near - g.glow) * .08;
-      c.lineWidth = 1; c.strokeStyle = `rgba(160,170,255,${.14 + g.glow * .32})`;
-      c.beginPath();
-      for (const [a, b] of g.edges) { const [ax, ay] = pos(a, g), [bx, by] = pos(b, g); c.moveTo(ax, ay); c.lineTo(bx, by); }
-      c.stroke();
-    }
-    if (!reduced && t > nextPulse && groups.length) {
-      const g = groups[Math.floor(Math.random() * groups.length)];
-      const e = g.edges[Math.floor(Math.random() * g.edges.length)], flip = Math.random() < .5;
-      pulses.push({ a: flip ? e[1] : e[0], b: flip ? e[0] : e[1], ga: g, gb: g, t0: t, dur: 1100 + Math.random() * 600, arc: 0 });
-      nextPulse = t + 380 + Math.random() * 520;
-    }
-    if (!reduced && t > nextHand && groups.length > 1) {
-      const i = Math.floor(Math.random() * groups.length);
-      let j = Math.floor(Math.random() * (groups.length - 1)); if (j >= i) j++;
-      const ga = groups[i], gb = groups[j];
-      pulses.push({ a: ga.nodes[Math.floor(Math.random() * ga.nodes.length)], b: gb.nodes[Math.floor(Math.random() * gb.nodes.length)], ga, gb, t0: t, dur: 2600, arc: .22 });
-      nextHand = t + 4200 + Math.random() * 3500;
-    }
-    pulses = pulses.filter(p => {
-      const q = (t - p.t0) / p.dur, [ax, ay] = pos(p.a, p.ga), [bx, by] = pos(p.b, p.gb);
-      if (q >= 1) { p.b.f = 1; return false; }
-      if (q < .05) p.a.f = Math.max(p.a.f, .6);
-      let x, y;
-      if (p.arc) {
-        const mx = (ax + bx) / 2 - (by - ay) * p.arc, my = (ay + by) / 2 + (bx - ax) * p.arc;
-        c.setLineDash([2, 6]); c.lineWidth = 1; c.strokeStyle = `rgba(34,211,238,${Math.sin(Math.PI * q) * .16})`;
-        c.beginPath(); c.moveTo(ax, ay); c.quadraticCurveTo(mx, my, bx, by); c.stroke(); c.setLineDash([]);
-        const u = 1 - q; x = u * u * ax + 2 * u * q * mx + q * q * bx; y = u * u * ay + 2 * u * q * my + q * q * by;
-      } else { const e = q * q * (3 - 2 * q); x = ax + (bx - ax) * e; y = ay + (by - ay) * e; }
-      c.fillStyle = 'rgba(34,211,238,.22)'; c.beginPath(); c.arc(x, y, 5, 0, TAU); c.fill();
-      c.fillStyle = 'rgba(220,250,255,.95)'; c.beginPath(); c.arc(x, y, 1.5, 0, TAU); c.fill();
-      return true;
-    });
-    for (const g of groups) for (const nd of g.nodes) {
-      const [x, y] = pos(nd, g), tw = reduced ? 1 : .8 + .2 * Math.sin(t * .0012 + nd.ph), hot = nd.f;
-      c.fillStyle = hot > .1 ? `rgba(34,211,238,${.1 + hot * .3})` : `rgba(124,108,255,${.1 + g.glow * .14})`;
-      c.beginPath(); c.arc(x, y, nd.r * (4 + hot * 3), 0, TAU); c.fill();
-      c.fillStyle = `rgba(244,246,255,${(.75 + g.glow * .25) * tw})`;
-      c.beginPath(); c.arc(x, y, nd.r, 0, TAU); c.fill();
-      nd.f *= .955;
+      const pos = nd => [nd.x, ((nd.y - sy * g.d) % H + H) % H];
+      c.setLineDash([3, 8]); c.strokeStyle = 'rgba(180,166,255,.15)'; c.lineWidth = .7;
+      for (const [a, b] of g.edges) {
+        const [ax, ay] = pos(a), [bx, by] = pos(b);
+        if (Math.abs(ay - by) > g.R * 3) continue;
+        c.beginPath(); c.moveTo(ax, ay); c.lineTo(bx, by); c.stroke();
+      }
+      c.setLineDash([]);
+      for (let i = 0; i < g.nodes.length; i++) {
+        const nd = g.nodes[i], [x, y] = pos(nd);
+        const alpha = reduced ? .6 : .45 + .2 * Math.sin(t * .0006 + nd.ph);
+        const size = i === 0 ? 5 : 3;
+        c.fillStyle = `rgba(${i === 0 ? PAL[2] : PAL[0]},${alpha})`;
+        c.fillRect(Math.round(x), Math.round(y), size, size);
+      }
     }
   }
 
@@ -247,14 +291,14 @@
     const n = Math.hypot(dx, dy); dx /= n; dy /= n;
     const x = up ? -30 : -30 + Math.random() * W * .3;
     const y = up ? H * (.45 + Math.random() * .5) : -30;
-    const cs = 8 + Math.floor(Math.random() * 4);
+    const cs = 2 + Math.floor(Math.random() * 2);
     const pal = PAL.slice().sort(() => Math.random() - .5).slice(0, 4);
     return { x, y, dx, dy, sp: .045 + Math.random() * .035, cs, pal, steps: [], key: null, max: 16 + Math.floor(Math.random() * 10), born: t };
   }
 
   function drawComets(c, t, dt) {
     if (reduced) return;
-    const want = W < 700 ? 2 : 3;
+    const want = W < 700 ? 1 : 2;
     while (comets.length < want) {
       const cm = spawnComet(t);
       const d = comets.length * (W * .35);
@@ -293,7 +337,7 @@
     if (p >= 1) { meteor = null; nextMeteor = t + 7000 + Math.random() * 9000; return; }
     const d = p * 420, hx = m.x + m.vx * d, hy = m.y + m.vy * d, tx = hx - m.vx * m.len, ty = hy - m.vy * m.len, al = Math.sin(Math.PI * p) * .8;
     const gr = c.createLinearGradient(hx, hy, tx, ty);
-    gr.addColorStop(0, `rgba(220,250,255,${al})`); gr.addColorStop(1, 'rgba(124,108,255,0)');
+    gr.addColorStop(0, `rgba(220,250,255,${al})`); gr.addColorStop(1, 'rgba(112,82,240,0)');
     c.strokeStyle = gr; c.lineWidth = 1.2; c.beginPath(); c.moveTo(hx, hy); c.lineTo(tx, ty); c.stroke();
   }
 
@@ -306,11 +350,17 @@
     c.clearRect(0, 0, W, H);
     if (sky && CONFIG.showMilkyWay) c.drawImage(sky, 0, -Math.min(sy * .06, skyH - H), W, skyH);
     for (const st of stars) {
-      const tw = reduced ? 1 : .65 + .35 * Math.sin(t * st.sp + st.ph);
+      const tw = reduced ? 1 : .75 + .25 * Math.sin(t * st.sp + st.ph);
       let y = (st.y - sy * st.d) % H; if (y < 0) y += H;
-      const col = st.warm ? '200,192,255' : '226,232,250';
-      if (st.big) { c.fillStyle = `rgba(${col},${.1 * tw})`; c.beginPath(); c.arc(st.x, y, st.r * 3.5, 0, TAU); c.fill(); }
-      c.fillStyle = `rgba(${col},${st.a * tw})`; c.beginPath(); c.arc(st.x, y, st.r, 0, TAU); c.fill();
+      const col = st.warm ? PAL[1] : '244,242,255';
+      const size = st.big ? 2 : 1;
+      c.fillStyle = `rgba(${col},${st.a * tw * .75})`;
+      c.fillRect(Math.round(st.x), Math.round(y), size, size);
+      if (st.big) {
+        c.fillStyle = `rgba(${col},${st.a * tw * .18})`;
+        c.fillRect(Math.round(st.x) - 2, Math.round(y), 6, 1);
+        c.fillRect(Math.round(st.x), Math.round(y) - 2, 1, 6);
+      }
     }
     if (CONFIG.showPixelComets) drawComets(c, t, dt);
     drawMeteor(c, t);
@@ -338,26 +388,22 @@
 
   /* ---------- Wiring ---------- */
 
-  document.querySelectorAll('.js-go-sponsors').forEach(a => a.addEventListener('click', e => {
-    e.preventDefault(); smoothTo(sponsors);
-  }));
-
-  // "Sign up" isn't live yet: block navigation and flash the tooltip on tap.
-  document.querySelectorAll('.js-noop').forEach(a => a.addEventListener('click', e => {
-    e.preventDefault();
-    const wrap = a.closest('.tip-wrap');
-    if (!wrap) return;
-    wrap.classList.add('is-tapped');
-    clearTimeout(wrap._tipTimer);
-    wrap._tipTimer = setTimeout(() => wrap.classList.remove('is-tapped'), 1600);
+  document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+    const target = document.getElementById(a.getAttribute('href').slice(1));
+    if (!target) return;
+    e.preventDefault(); smoothTo(target);
+    history.replaceState(null, '', a.getAttribute('href'));
+    target.setAttribute('tabindex', '-1');
+    target.focus({ preventScroll: true });
   }));
 
   window.addEventListener('resize', resize);
   window.addEventListener('pointermove', onMove);
   document.addEventListener('pointerleave', () => { last = null; });
 
+  buildStarMap();
   resize();
   setupReveal();
   const loop = t => { draw(t); requestAnimationFrame(loop); };
-  requestAnimationFrame(loop);
+  if (!reduced) requestAnimationFrame(loop);
 })();

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AgentVerse · UCL AI Society Hackathon</title>
 <meta name="description" content="AgentVerse — UCL's premier AI hackathon, presented by UCL AI Society. 7–8 November 2026.">
-<meta name="theme-color" content="#0b0f1a">
+<meta name="theme-color" content="#080719">
 <link rel="canonical" href="https://agentverse.uclai.co.uk/">
 
 <!-- Icons -->
@@ -35,7 +35,7 @@
 <meta name="twitter:image" content="https://agentverse.uclai.co.uk/assets/og-image.png">
 <meta name="twitter:image:alt" content="AgentVerse — UCL's premier AI Hackathon, 7–8 November 2026">
 <link rel="preload" as="image" href="assets/agentverse-wordmark.png">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=20261014-2">
 </head>
 <body>
 <div class="root" id="root">
@@ -45,18 +45,16 @@
   <canvas id="trail" class="fx fx-trail" aria-hidden="true"></canvas>
 
   <header class="site-header">
-    <span class="header-date">7–8 November 2026</span>
-    <nav class="header-nav">
-      <a href="#sponsors" class="nav-link js-go-sponsors">Sponsors</a>
-      <div class="tip-wrap">
-        <a href="#" class="pill pill-sm js-noop" aria-describedby="tip-head">Sign up</a>
-        <span role="tooltip" id="tip-head" class="tip tip-below">Coming soon</span>
-      </div>
+    <a href="#top" class="header-brand" aria-label="AgentVerse home"><img src="assets/aisoc-logo-light.png" width="30" height="28" alt="UCL AI Society"></a>
+    <nav class="header-nav" aria-label="Main navigation">
+      <a href="#sponsors" class="nav-link">Sponsors</a>
+      <a href="#timeline" class="nav-link">Timeline</a>
+      <a href="#apply" class="button button-small">Apply <span aria-hidden="true">↗</span></a>
     </nav>
   </header>
 
   <main>
-    <section class="hero" data-screen-label="Hero">
+    <section id="top" class="hero" data-screen-label="Hero">
       <div class="hero-inner">
         <div data-reveal="0" class="hero-presents">
           <img src="assets/aisoc-logo-light.png" alt="UCL AI Society" class="hero-logo">
@@ -73,73 +71,62 @@
         </div>
 
         <div data-reveal="3" class="hero-ctas">
-          <div class="tip-wrap">
-            <a href="#" class="pill pill-lg js-noop" aria-describedby="tip-hero">
-              <span>Sign up now</span>
-              <span aria-hidden="true">→</span>
-            </a>
-            <span role="tooltip" id="tip-hero" class="tip tip-above">Coming soon</span>
-          </div>
-          <a href="#sponsors" class="text-cta js-go-sponsors">
+          <a href="#apply" class="button"><span>Apply to AgentVerse</span><span aria-hidden="true">↗</span></a>
+          <a href="#sponsors" class="text-cta">
             <span>Meet our sponsors</span>
             <span aria-hidden="true">↓</span>
           </a>
         </div>
       </div>
+      <canvas class="horizon horizon-hero" data-landscape="hero" aria-hidden="true"></canvas>
     </section>
 
     <section id="sponsors" class="sponsors" data-screen-label="Sponsors">
       <div data-reveal="0" class="sponsors-head">
-        <div class="sponsors-head-text">
-          <span class="eyebrow">Proudly powered by</span>
-          <h2>Our sponsors</h2>
-        </div>
-        <p class="muted-lg">To be revealed soon.</p>
+        <h2>Introducing our<br>main sponsors.</h2>
+        <p class="section-description">Powering AgentVerse 2026. Our partners will be revealed soon.</p>
       </div>
 
-      <div data-reveal="1" class="tier">
-        <div class="tier-label"><span class="dot" style="background:#22d3ee"></span><span>AI Partner</span></div>
-        <div class="card card-ai" aria-label="AI Partner to be revealed">
-          <span aria-hidden="true" class="blurred blur-ai">DeepMind</span>
+      <div data-reveal="1" class="sponsor-lineup">
+        <div class="sponsor-slot sponsor-slot-main">
+          <span class="slot-label">AI partner</span>
+          <div class="sponsor-signal" aria-hidden="true"><span></span><span></span><span></span></div>
+          <p>To be revealed</p>
+        </div>
+        <div class="sponsor-slot sponsor-slot-support">
+          <span class="slot-label">With support from</span>
+          <div class="sponsor-signal" aria-hidden="true"><span></span><span></span><span></span></div>
+          <p>To be revealed</p>
         </div>
       </div>
+      <canvas class="horizon horizon-sponsors" data-landscape="nebula" aria-hidden="true"></canvas>
+    </section>
 
-      <div data-reveal="2" class="tier">
-        <div class="tier-label"><span class="dot" style="background:#7C6CFF"></span><span>Track Partners</span></div>
-        <div class="row">
-          <div class="card card-track" aria-label="Track partner to be revealed">
-            <span class="track-num">Track 1</span>
-            <div aria-hidden="true" class="blurred blur-track">
-              <span class="track-name">Amazon Web Services</span>
-              <span class="track-theme">Agents for Science</span>
-            </div>
-          </div>
-          <div class="card card-track" aria-label="Track partner to be revealed">
-            <span class="track-num">Track 2</span>
-            <div aria-hidden="true" class="blurred blur-track">
-              <span class="track-name">Nvidia</span>
-              <span class="track-theme">Multi-agent Systems</span>
-            </div>
-          </div>
-          <div class="card card-track" aria-label="Track partner to be revealed">
-            <span class="track-num">Track 3</span>
-            <div aria-hidden="true" class="blurred blur-track">
-              <span class="track-name">Canva</span>
-              <span class="track-theme">Agents for Good</span>
-            </div>
-          </div>
-        </div>
+    <section id="timeline" class="timeline section" aria-labelledby="timeline-title">
+      <div data-reveal="0" class="section-heading">
+        <h2 id="timeline-title">Registration<br>timeline.</h2>
       </div>
+      <ol data-reveal="1" class="timeline-steps">
+        <li><span class="timeline-marker" aria-hidden="true"></span><span class="timeline-date">To be announced</span><h3>Applications open</h3><p>Your first step into AgentVerse.</p></li>
+        <li><span class="timeline-marker" aria-hidden="true"></span><span class="timeline-date">To be announced</span><h3>Applications close</h3><p>The deadline to submit your application.</p></li>
+        <li><span class="timeline-marker" aria-hidden="true"></span><span class="timeline-date">7–8 November 2026</span><h3>Time to build</h3><p>AgentVerse. Two days at UCL.</p></li>
+      </ol>
+    </section>
 
-      <div data-reveal="3" class="tier">
-        <div class="tier-label"><span class="dot" style="background:#8A93A8"></span><span>Partners</span></div>
-        <div class="row">
-          <div class="card card-partner" aria-label="Partner to be revealed"><span aria-hidden="true" class="blurred blur-partner">Partner</span></div>
-          <div class="card card-partner" aria-label="Partner to be revealed"><span aria-hidden="true" class="blurred blur-partner">Sponsor co</span></div>
-          <div class="card card-partner" aria-label="Partner to be revealed"><span aria-hidden="true" class="blurred blur-partner">Partner</span></div>
-          <div class="card card-partner" aria-label="Partner to be revealed"><span aria-hidden="true" class="blurred blur-partner">Sponsor</span></div>
-        </div>
+    <section id="apply" class="apply section" aria-labelledby="apply-title">
+      <div data-reveal="0" class="apply-intro">
+        <span class="eyebrow">Ready to build?</span>
+        <h2 id="apply-title">Welcome back,<br>builders.</h2>
+        <p class="section-description">Join us at UCL's premier AI hackathon.<br>7–8 November 2026.</p>
       </div>
+      <div data-reveal="1" class="application-panel">
+        <span class="slot-label">Apply to AgentVerse 2026</span>
+        <h3>Apply to<br>AgentVerse 2026.</h3>
+        <p>Applications are opening soon. The application form and registration dates will appear here when they're ready.</p>
+        <button class="button button-disabled" type="button" disabled>Applications opening soon <span aria-hidden="true">↗</span></button>
+        <a class="application-contact" href="mailto:info@uclai.co.uk">Questions? info@uclai.co.uk</a>
+      </div>
+      <canvas class="horizon horizon-apply" data-landscape="footer" aria-hidden="true"></canvas>
     </section>
   </main>
 
@@ -154,6 +141,6 @@
     </div>
   </footer>
 </div>
-<script src="main.js"></script>
+<script src="main.js?v=20261014-2"></script>
 </body>
 </html>
