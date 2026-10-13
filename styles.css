@@ -129,12 +129,13 @@ h2 { margin: 0; font-family: var(--font-display); font-size: clamp(38px, 4.6vw, 
   .application-panel { padding: 30px; }
 }
 @media (max-width: 640px) {
+  main > section { min-height: 100vh; min-height: 100svh; }
   .designer-sky { height: 65svh; }
   .site-header { padding-block: 22px; }
   .header-nav { gap: 20px; }
   .nav-link { font-size: 12px; }
   .button-small { font-size: 12px; padding: 9px 13px; gap: 12px; }
-  .hero { min-height: 82svh; padding-top: 190px; padding-bottom: 110px; }
+  .hero { min-height: 100svh; padding-top: 190px; padding-bottom: 110px; }
   .hero-presents { font-size: 12px; gap: 10px; margin-bottom: 22px; }
   .hero-logo { height: 24px; }
   .hero-sub { flex-direction: column; align-items: flex-start; gap: 8px; margin-top: 24px; }
@@ -144,28 +145,62 @@ h2 { margin: 0; font-family: var(--font-display); font-size: clamp(38px, 4.6vw, 
   .button { font-size: 13px; padding: 15px 20px; gap: 22px; }
   .button-small { font-size: 12px; padding: 9px 13px; gap: 12px; }
   .section, .sponsors { padding-inline: var(--gutter); }
-  .sponsors { min-height: 0; padding-top: 72px; padding-bottom: 180px; }
+  .sponsors { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; padding-top: 64px; padding-bottom: 100px; }
   .sponsors-head { text-align: left; }
   .sponsors-head .section-description { margin-inline: 0; }
   .eyebrow { font-size: 12px; margin-bottom: 20px; }
   h2 { font-size: 39px; }
   .section-description { font-size: 15px; }
-  .sponsor-lineup { grid-template-columns: 1fr; gap: 36px; margin-top: 48px; }
+  .sponsor-lineup { width: 100%; grid-template-columns: 1fr; gap: 24px; margin: 36px 0 0; }
   .sponsor-slot-support { padding-top: 10px; }
   .horizon-sponsors { height: 200px; bottom: 10px; }
-  .timeline { min-height: 0; padding-top: 80px; padding-bottom: 100px; gap: 38px; }
+  .timeline { min-height: 100svh; align-content: center; padding-top: 64px; padding-bottom: 80px; gap: 38px; }
   .timeline-steps { grid-template-columns: 1fr; gap: 42px; margin: 0; }
   .timeline-steps::before { top: 5px; bottom: 70px; width: 1px; height: auto; left: 5px; background: linear-gradient(#b4a6ff, #7052f0, #22d0e8); }
   .timeline-steps li { padding: 0 0 0 38px; }
   .timeline-marker { top: 4px; }
   .timeline-steps h3 { margin: 10px 0; font-size: 21px; }
   .timeline-steps p { max-width: 250px; }
-  .apply { grid-template-columns: 1fr; gap: 44px; padding-top: 80px; padding-bottom: 220px; }
-  .application-panel { justify-self: stretch; width: 100%; padding: 28px; }
+  .apply { min-height: 100svh; grid-template-columns: 1fr; align-content: center; gap: 32px; padding-top: 56px; padding-bottom: 120px; }
+  .application-panel { justify-self: stretch; width: 100%; padding: 24px; }
+  .application-panel .slot-label { display: none; }
+  .application-panel h3 { margin-top: 0; }
+  .application-panel p { font-size: 14px; line-height: 1.6; margin-bottom: 20px; }
+  .application-contact { margin-top: 20px; }
   .application-panel .button { white-space: normal; text-align: left; line-height: 1.4; }
   .horizon-apply { height: 180px; }
   .site-footer { flex-direction: column; align-items: flex-start; }
   .footer-meta { flex-direction: column; align-items: flex-start; gap: 14px; }
+}
+@media (max-width: 640px) and (max-height: 740px) {
+  .hero { padding-top: 160px; padding-bottom: 80px; }
+  .sponsors { padding-top: 48px; padding-bottom: 72px; }
+  .sponsor-lineup { margin-top: 28px; gap: 20px; }
+  .sponsor-slot { padding: 20px 24px; }
+  .sponsor-slot-support { padding-top: 10px; }
+  .apply { padding-top: 40px; padding-bottom: 80px; gap: 24px; }
+  .application-panel { padding: 20px; }
+  .horizon-apply { height: 130px; }
+}
+@media (max-width: 640px) and (max-height: 600px) {
+  .hero { padding-top: 130px; padding-bottom: 56px; }
+  h2 { font-size: 34px; }
+  .eyebrow { margin-bottom: 12px; }
+  .section-description { font-size: 14px; line-height: 1.5; margin-top: 20px; }
+  .sponsors { padding-top: 28px; padding-bottom: 64px; }
+  .sponsor-lineup { margin-top: 24px; gap: 16px; }
+  .sponsor-slot { padding: 16px 20px; }
+  .sponsor-slot-support { padding-top: 10px; }
+  .sponsor-signal { height: 44px; }
+  .timeline { padding-top: 36px; padding-bottom: 40px; gap: 28px; }
+  .timeline-steps { gap: 30px; }
+  .apply { padding-top: 28px; padding-bottom: 64px; gap: 18px; }
+  .application-panel { padding: 16px; }
+  .application-panel h3 { font-size: 24px; margin-bottom: 14px; }
+  .application-panel p { font-size: 13px; line-height: 1.5; margin-bottom: 16px; }
+  .application-panel .button { font-size: 12px; padding: 12px 14px; gap: 10px; }
+  .application-contact { font-size: 11px; margin-top: 14px; }
+  .horizon-apply { height: 110px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .reveal-ready [data-reveal] { opacity: 1; transform: none; transition: none; }
