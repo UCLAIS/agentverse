@@ -1,15 +1,13 @@
 :root {
   --bg: #0b0f1a;
   --surface: #151b2c;
-  --text: #E8EBF4;
+  --text: #F8FAFF;
   --muted: #8A93A8;
-  --cyan: #22d3ee;
-  --violet: #7C6CFF;
-  --violet-deep: #7466E8;
+  --cyan: #18CDE8;
+  --violet: #7052F0;
   --gutter: clamp(24px, 5vw, 72px);
   --font-text: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
   --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
-  --font-serif: 'Instrument Serif', Georgia, serif;
 }
 
 html, body {
@@ -33,6 +31,14 @@ a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
 }
 
 /* Background effects */
+.designer-sky {
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 100vh; height: 100svh;
+  z-index: 0; pointer-events: none;
+  background: url('assets/designer-space.webp') right top / cover no-repeat;
+  mask-image: linear-gradient(#000 0%, #000 55%, transparent 100%);
+  -webkit-mask-image: linear-gradient(#000 0%, #000 55%, transparent 100%);
+}
 .fx { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .fx-stars { z-index: 0; }
 .fx-trail { z-index: 50; }
@@ -90,13 +96,10 @@ a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
 .hero-logo { height: 34px; width: auto; display: block; }
 .hero-title {
   margin: 0;
-  font-family: var(--font-display); font-weight: 500; font-style: normal;
-  font-size: clamp(60px, 12.5vw, 210px); line-height: .92; letter-spacing: -.05em;
-  color: var(--text); overflow-wrap: anywhere; min-width: 0;
+  line-height: 0; min-width: 0;
 }
-.hero-title-serif {
-  font-family: var(--font-serif); font-style: italic; font-weight: 400;
-  font-size: 1.1em; letter-spacing: -.025em; color: var(--violet-deep); padding-right: .04em;
+.hero-wordmark {
+  display: block; width: 100%; height: auto;
 }
 .hero-sub {
   display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 28px; padding-left: .4%;
@@ -218,6 +221,14 @@ a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
 }
 
 @media (max-width: 600px) {
+  .designer-sky { height: 72svh; }
+  .hero-inner { gap: 26px; }
+  .hero-presents { gap: 10px; font-size: 14px; }
+  .hero-logo { height: 28px; }
+  .hero-ctas { gap: 20px; }
+  .header-nav { gap: 14px; }
+  .header-date { font-size: 12px; }
+  .nav-link { font-size: 13px; }
   .site-footer { flex-direction: column; align-items: flex-start; }
   .footer-meta { flex-direction: column; align-items: flex-start; }
 }

@@ -34,14 +34,13 @@
 <meta name="twitter:description" content="UCL AI Society presents AgentVerse, UCL's premier AI hackathon. 7–8 November 2026. Sign-ups opening soon.">
 <meta name="twitter:image" content="https://agentverse.uclai.co.uk/assets/og-image.png">
 <meta name="twitter:image:alt" content="AgentVerse — UCL's premier AI Hackathon, 7–8 November 2026">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/agentverse-wordmark.png">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <div class="root" id="root">
 
+  <div class="designer-sky" aria-hidden="true"></div>
   <canvas id="stars" class="fx fx-stars" aria-hidden="true"></canvas>
   <canvas id="trail" class="fx fx-trail" aria-hidden="true"></canvas>
 
@@ -64,7 +63,9 @@
           <span>UCL AI Society presents</span>
         </div>
 
-        <h1 data-reveal="1" class="hero-title">Agent<span class="hero-title-serif">Verse</span></h1>
+        <h1 data-reveal="1" class="hero-title">
+          <img src="assets/agentverse-wordmark.png" width="4096" height="696" alt="AgentVerse 2026" class="hero-wordmark" fetchpriority="high">
+        </h1>
 
         <div data-reveal="2" class="hero-sub">
           <p>UCL's premier AI Hackathon</p>
