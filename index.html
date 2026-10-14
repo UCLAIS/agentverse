@@ -37,7 +37,7 @@
 <link rel="preload" as="image" href="assets/agentverse-wordmark.webp" imagesrcset="assets/agentverse-wordmark-640.webp 640w, assets/agentverse-wordmark-1280.webp 1280w, assets/agentverse-wordmark.webp 4096w" imagesizes="(max-width: 400px) calc(100vw - 48px), (min-width: 1600px) 1400px, 88vw" fetchpriority="high">
 <link rel="preload" as="image" href="assets/designer-space-mobile.webp" media="(max-width: 767px)" fetchpriority="high">
 <link rel="preload" as="image" href="assets/designer-space-display.webp" media="(min-width: 768px)" fetchpriority="high">
-<link rel="stylesheet" href="styles.css?v=20261014-8">
+<link rel="stylesheet" href="styles.css?v=20261014-9">
 </head>
 <body>
 <div class="root" id="root">
@@ -142,7 +142,9 @@
       <div data-reveal="1" class="application-panel">
         <h3>Apply to<br>AgentVerse 2026.</h3>
         <p>Applications: 19-30 October 2026.</p>
-        <a class="button devfolio-button" href="https://agentverse.devfolio.co/" target="_blank" rel="noopener">Apply on Devfolio <span aria-hidden="true">↗</span></a>
+        <div class="devfolio-apply">
+          <div class="apply-button" data-hackathon-slug="agentverse" data-button-theme="light" data-button-width="312" style="height: 44px; width: 312px"></div>
+        </div>
         <a class="application-contact" href="mailto:events@uclai.co.uk">Questions? events@uclai.co.uk</a>
       </div>
       <canvas class="horizon horizon-apply" data-landscape="footer" aria-hidden="true"></canvas>
@@ -170,6 +172,7 @@
     </div>
   </footer>
 </div>
-<script src="main.js?v=20261014-5"></script>
+<script src="main.js?v=20261014-9"></script>
+<script defer async src="https://apply.devfolio.co/v2/sdk.js"></script>
 </body>
 </html>
