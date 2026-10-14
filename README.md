@@ -26,12 +26,10 @@ Hacking runs from 09:00 on 7 November to 18:00 on 8 November. All times are Lond
 Three track sponsor names await confirmation. Devfolio is credited as the
 community partner in the footer, using its official white logo and required alt text.
 
-The official Apply with Devfolio SDK is included once, using the `agentverse`
-slug and its unmodified dark button theme. A direct event link remains available
-if the embed cannot load. Devfolio must verify the hackathon and its configured
-website (`https://agentverse.uclai.co.uk/`) before the button becomes functional.
-For the SDK preview, use `http://localhost:8765/` rather than `127.0.0.1`:
-the SDK only permits HTTPS or a `localhost` hostname.
+The custom muted-purple "Apply on Devfolio" button opens
+`https://agentverse.devfolio.co/` in a new tab. Registration happens on Devfolio;
+the embedded SDK was replaced at the organiser's request to allow site-matched
+typography and colours. The Devfolio event must be available for applications.
 
 Effect settings (trail style, star count, toggles) live in the `CONFIG` object at the top of `main.js`.
 The short pixel cursor trail keeps the native cursor, ignores touch and pen
