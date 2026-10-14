@@ -7,8 +7,8 @@
     showPixelComets: true,
     showAgents: true,
     showMilkyWay: true,
-    showTrail: false,
-    trailIntensity: 1,      // 0.3 – 2.5
+    showTrail: true,
+    trailIntensity: .85,    // 0.3 - 2.5
     starCount: 140          // 40 – 800
   };
 
@@ -53,6 +53,7 @@
       c.width = W * dpr; c.height = H * dpr;
       c.getContext('2d').setTransform(dpr, 0, 0, dpr, 0, 0);
     });
+    pix = []; parts = []; resetPointer();
     makeStars(); buildSky(); buildAgents(); drawLandscapes();
     if (reduced) draw(0);
   }
@@ -116,13 +117,20 @@
 
   /* ---------- Cursor trail ---------- */
 
+  function resetPointer() {
+    last = null;
+    lastCell = null;
+  }
+
   function onMove(e) {
     const x = e.clientX, y = e.clientY;
-    if (!CONFIG.showTrail || reduced) { last = { x, y }; return; }
+    // Keep the native cursor, and avoid drawing from touch/pen gestures.
+    if (!CONFIG.showTrail || reduced || e.pointerType !== 'mouse') { resetPointer(); return; }
     const k = CONFIG.trailIntensity;
+    if (!last) last = { x, y };
     if (last) {
       const dx = x - last.x, dy = y - last.y;
-      const n = Math.min(6, Math.ceil(Math.hypot(dx, dy) / 5));
+      const n = Math.max(1, Math.min(6, Math.ceil(Math.hypot(dx, dy) / 5)));
       const pixels = CONFIG.trailStyle === 'pixels';
       for (let i = 0; i < n; i++) {
         const t = i / n, px = last.x + dx * t, py = last.y + dy * t;
@@ -138,6 +146,9 @@
         }
       }
     }
+    // Bound work even on high-frequency gaming mice.
+    if (pix.length > 90) pix = pix.slice(-90);
+    if (parts.length > 48) parts = parts.slice(-48);
     last = { x, y };
   }
 
@@ -360,12 +371,12 @@
     x.clearRect(0, 0, W, H);
     const k = CONFIG.trailIntensity;
     if (pix.length) {
-      pix = pix.filter(p => (p.life -= .028) > 0);
+      pix = pix.filter(p => (p.life -= dt / 450) > 0);
       for (const p of pix) { x.fillStyle = `rgba(${p.c},${Math.min(1, p.life * .6 * k)})`; x.fillRect(p.gx * p.cs, p.gy * p.cs, p.cs - 1, p.cs - 1); }
     }
     if (!parts.length) return;
     x.globalCompositeOperation = 'lighter';
-    parts = parts.filter(p => (p.life -= 0.03) > 0);
+    parts = parts.filter(p => (p.life -= dt / 450) > 0);
     for (const p of parts) {
       p.x += p.vx; p.y += p.vy; p.vx *= .95; p.vy *= .95; p.vy += .02;
       const l = p.life, r = p.r * (0.4 + l), rr = Math.round(124 + 96 * l), g = Math.round(108 + 142 * l * l), a = Math.min(1, l * .32 * k);
@@ -403,8 +414,9 @@
   }));
 
   window.addEventListener('resize', resize);
-  window.addEventListener('pointermove', onMove);
-  document.addEventListener('pointerleave', () => { last = null; });
+  window.addEventListener('pointermove', onMove, { passive: true });
+  document.addEventListener('pointerleave', resetPointer);
+  window.addEventListener('blur', resetPointer);
 
   buildStarMap();
   resize();
