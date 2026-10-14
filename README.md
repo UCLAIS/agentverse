@@ -10,9 +10,13 @@ Static site — no build step:
   layered pixel horizons, cursor trail and scroll reveal
 - `assets/` — images
 
-The hero uses the designer's original wordmark (`agentverse-wordmark.png`) and
-space artwork (`designer-space.webp`), extracted from the supplied SVG.
-The WebP background preserves the PNG's pixels losslessly. A violet galaxy,
+The hero uses the designer's original wordmark (the PNG is retained, while
+`agentverse-wordmark.webp` serves the same pixels in a smaller file) and
+space artwork, extracted from the supplied SVG. `designer-space.webp` retains
+the lossless source; the page serves `designer-space-display.webp`, a compressed
+copy with the same dimensions and composition. Phones receive a smaller
+background variant, and responsive wordmark and logo variants avoid oversized
+downloads. A violet galaxy,
 pixel stars and layered nebula landscapes carry the designer's palette through
 the hero, sponsors, registration timeline, application section and footer.
 
@@ -20,6 +24,10 @@ Sponsor names, registration dates and the application link await confirmation.
 The application button stays disabled until the real form is available.
 
 Effect settings (trail style, star count, toggles) live in the `CONFIG` object at the top of `main.js`.
+
+Each main section fills at least the current viewport and grows for longer
+content. Registration uses a heading above the timeline, with vertical steps
+on phones. Section links use browser-native scrolling and respect reduced motion.
 
 ## Run locally
 

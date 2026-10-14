@@ -7,9 +7,9 @@
     showPixelComets: true,
     showAgents: true,
     showMilkyWay: true,
-    showTrail: true,
+    showTrail: false,
     trailIntensity: 1,      // 0.3 – 2.5
-    starCount: 520          // 40 – 800
+    starCount: 140          // 40 – 800
   };
 
   const PAL = ['112,82,240', '180,166,255', '34,208,232', '85,62,190', '148,123,255', '250,249,255'];
@@ -24,7 +24,7 @@
   let W = 0, H = 0, dpr = 1;
   let stars = [], parts = [], pix = [], last = null, lastCell = null;
   let meteor = null, nextMeteor = 5000, groups = [];
-  let comets = [], lt = 0, sky = null, skyH = 0, scrollRaf = 0;
+  let comets = [], lt = 0, sky = null, skyH = 0;
 
   // A persistent star layer spans the entire page underneath the moving sky.
   // This also keeps every section atmospheric when animation is reduced.
@@ -34,10 +34,10 @@
     const c = tile.getContext('2d');
     let seed = 2026;
     const rand = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
-    for (let i = 0; i < 900; i++) {
+    for (let i = 0; i < 180; i++) {
       const x = Math.floor(rand() * 1024), y = Math.floor(rand() * 1024);
       const color = i % 13 === 0 ? PAL[2] : i % 7 === 0 ? PAL[1] : '244,242,255';
-      c.fillStyle = `rgba(${color},${.12 + rand() * .35})`;
+      c.fillStyle = `rgba(${color},${.1 + rand() * .25})`;
       c.fillRect(x, y, 1, 1);
     }
     root.style.setProperty('--star-map', `url("${tile.toDataURL()}")`);
@@ -164,17 +164,7 @@
 
   function smoothTo(el) {
     if (!el) return;
-    const start = window.scrollY, end = el.getBoundingClientRect().top + start;
-    if (reduced) { window.scrollTo(0, end); return; }
-    const dur = 1200, t0 = performance.now();
-    const ease = p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
-    cancelAnimationFrame(scrollRaf);
-    const step = now => {
-      const p = Math.min(1, (now - t0) / dur);
-      window.scrollTo(0, start + (end - start) * ease(p));
-      if (p < 1) scrollRaf = requestAnimationFrame(step);
-    };
-    scrollRaf = requestAnimationFrame(step);
+    el.scrollIntoView({ behavior: reduced ? 'instant' : 'smooth', block: 'start' });
   }
 
   /* ---------- Starfield ---------- */
@@ -216,14 +206,14 @@
       const [x, y] = at(s, g() * w * .9);
       blob(x, y, W * (.04 + Math.random() * .11), tones[i % 4], .018 + Math.random() * .03);
     }
-    for (let i = 0; i < 4200; i++) {
+    for (let i = 0; i < 450; i++) {
       const s = (Math.random() - .5) * L, w = bw * wob(s);
       const [x, y] = at(s, g() * w);
-      c.fillStyle = `rgba(226,232,255,${.12 + Math.random() * .45})`;
+      c.fillStyle = `rgba(226,232,255,${.08 + Math.random() * .25})`;
       c.fillRect(Math.round(x), Math.round(y), 1, 1);
     }
-    for (let i = 0; i < 1800; i++) {
-      c.fillStyle = `rgba(226,232,255,${.08 + Math.random() * .28})`;
+    for (let i = 0; i < 120; i++) {
+      c.fillStyle = `rgba(226,232,255,${.06 + Math.random() * .18})`;
       c.fillRect(Math.floor(Math.random() * W), Math.floor(Math.random() * h), 1, 1);
     }
     c.globalCompositeOperation = 'source-over';
@@ -237,7 +227,7 @@
     c.fillStyle = vg; c.fillRect(0, 0, W, h);
     const tile = document.createElement('canvas'); tile.width = tile.height = 140;
     const tc = tile.getContext('2d'), id = tc.createImageData(140, 140);
-    for (let i = 0; i < id.data.length; i += 4) { const v = Math.random() * 255; id.data[i] = id.data[i + 1] = id.data[i + 2] = v; id.data[i + 3] = 9; }
+    for (let i = 0; i < id.data.length; i += 4) { const v = Math.random() * 255; id.data[i] = id.data[i + 1] = id.data[i + 2] = v; id.data[i + 3] = 3; }
     tc.putImageData(id, 0, 0);
     c.fillStyle = c.createPattern(tile, 'repeat'); c.fillRect(0, 0, W, h);
     sky = off; skyH = h;
