@@ -37,7 +37,7 @@
 <link rel="preload" as="image" href="assets/agentverse-wordmark.webp" imagesrcset="assets/agentverse-wordmark-640.webp 640w, assets/agentverse-wordmark-1280.webp 1280w, assets/agentverse-wordmark.webp 4096w" imagesizes="(max-width: 400px) calc(100vw - 48px), (min-width: 1600px) 1400px, 88vw" fetchpriority="high">
 <link rel="preload" as="image" href="assets/designer-space-mobile.webp" media="(max-width: 767px)" fetchpriority="high">
 <link rel="preload" as="image" href="assets/designer-space-display.webp" media="(min-width: 768px)" fetchpriority="high">
-<link rel="stylesheet" href="styles.css?v=20261014-5">
+<link rel="stylesheet" href="styles.css?v=20261014-6">
 </head>
 <body>
 <div class="root" id="root">
@@ -113,12 +113,14 @@
 
     <section id="timeline" class="timeline section" aria-labelledby="timeline-title">
       <div data-reveal="0" class="section-heading">
-        <h2 id="timeline-title">Registration timeline.</h2>
+        <h2 id="timeline-title">Event timeline.</h2>
+        <p class="timeline-note">All times are London time.</p>
       </div>
       <ol data-reveal="1" class="timeline-steps">
-        <li><span class="timeline-marker" aria-hidden="true"></span><span class="timeline-date">To be announced</span><h3>Applications open</h3><p>Your first step into AgentVerse.</p></li>
-        <li><span class="timeline-marker" aria-hidden="true"></span><span class="timeline-date">To be announced</span><h3>Applications close</h3><p>The deadline to submit your application.</p></li>
-        <li><span class="timeline-marker" aria-hidden="true"></span><span class="timeline-date">7-8 November 2026</span><h3>Time to build</h3><p>AgentVerse. Two days at UCL.</p></li>
+        <li><span class="timeline-marker" aria-hidden="true"></span><time class="timeline-date" datetime="2026-10-19T00:00:00+01:00">19 October 2026</time><h3>Applications open</h3><p>00:00 (midnight)</p></li>
+        <li><span class="timeline-marker" aria-hidden="true"></span><time class="timeline-date" datetime="2026-10-30T23:59:00+00:00">30 October 2026</time><h3>Applications close</h3><p>23:59</p></li>
+        <li><span class="timeline-marker" aria-hidden="true"></span><time class="timeline-date" datetime="2026-11-07T09:00:00+00:00">7 November 2026</time><h3>Hacking begins</h3><p>09:00</p></li>
+        <li><span class="timeline-marker" aria-hidden="true"></span><time class="timeline-date" datetime="2026-11-08T18:00:00+00:00">8 November 2026</time><h3>Hacking finishes</h3><p>18:00</p></li>
       </ol>
       <nav class="section-nav" aria-label="Timeline section navigation">
         <a href="#sponsors"><span class="section-arrow" aria-hidden="true">↑</span><span>Sponsors</span></a>
@@ -134,7 +136,7 @@
       </div>
       <div data-reveal="1" class="application-panel">
         <h3>Apply to<br>AgentVerse 2026.</h3>
-        <p>Applications are opening soon. The application form and registration dates will appear here when they're ready.</p>
+        <p>Applications open on 19 October and close on 30 October. The application form will appear here when it's ready.</p>
         <button class="button button-disabled" type="button" disabled>Applications opening soon <span aria-hidden="true">↗</span></button>
         <a class="application-contact" href="mailto:info@uclai.co.uk">Questions? info@uclai.co.uk</a>
       </div>

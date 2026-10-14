@@ -21,7 +21,9 @@ downloads. A violet galaxy,
 pixel stars and layered nebula landscapes carry the designer's palette through
 the hero, sponsors, registration timeline, application section and footer.
 
-Sponsor names, registration dates and the application link await confirmation.
+Applications open on 19 October 2026 at 00:00 and close on 30 October at 23:59.
+Hacking runs from 09:00 on 7 November to 18:00 on 8 November. All times are London time.
+Sponsor names and the application link await confirmation.
 The application button stays disabled until the real form is available.
 
 Effect settings (trail style, star count, toggles) live in the `CONFIG` object at the top of `main.js`.
