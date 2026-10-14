@@ -37,7 +37,7 @@
 <link rel="preload" as="image" href="assets/agentverse-wordmark.webp" imagesrcset="assets/agentverse-wordmark-640.webp 640w, assets/agentverse-wordmark-1280.webp 1280w, assets/agentverse-wordmark.webp 4096w" imagesizes="(max-width: 400px) calc(100vw - 48px), (min-width: 1600px) 1400px, 88vw" fetchpriority="high">
 <link rel="preload" as="image" href="assets/designer-space-mobile.webp" media="(max-width: 767px)" fetchpriority="high">
 <link rel="preload" as="image" href="assets/designer-space-display.webp" media="(min-width: 768px)" fetchpriority="high">
-<link rel="stylesheet" href="styles.css?v=20261014-9">
+<link rel="stylesheet" href="styles.css?v=20261014-10">
 </head>
 <body>
 <div class="root" id="root">
@@ -81,39 +81,31 @@
           </a>
         </div>
       </div>
-      <nav class="section-nav" aria-label="Home section navigation">
-        <a href="#sponsors" class="section-next"><span>Explore sponsors</span><span class="section-arrow" aria-hidden="true">↓</span></a>
-      </nav>
     </section>
 
     <section id="sponsors" class="sponsors" data-screen-label="Sponsors">
       <div data-reveal="0" class="sponsors-head">
-        <h2>Introducing our<br>track sponsors.</h2>
-        <p class="section-description">Our three track sponsors will be announced soon.</p>
+        <h2>Our sponsors.</h2>
+        <p class="section-description">Partners to be announced soon.</p>
       </div>
-
-      <div data-reveal="1" class="sponsor-lineup">
-        <div class="sponsor-slot">
-          <span class="slot-label">Track sponsor</span>
-          <div class="sponsor-signal" aria-hidden="true"><span></span><span></span><span></span></div>
-          <p>To be revealed</p>
+      <div data-reveal="1" class="sponsor-tiers">
+        <div class="sponsor-tier" role="group" aria-labelledby="main-sponsor-title">
+          <h3 id="main-sponsor-title">Main sponsor</h3>
+          <div class="sponsor-slot sponsor-slot-main">
+            <div class="sponsor-signal" aria-hidden="true"><span></span><span></span><span></span></div>
+            <p>To be revealed</p>
+          </div>
         </div>
-        <div class="sponsor-slot">
-          <span class="slot-label">Track sponsor</span>
-          <div class="sponsor-signal" aria-hidden="true"><span></span><span></span><span></span></div>
-          <p>To be revealed</p>
-        </div>
-        <div class="sponsor-slot">
-          <span class="slot-label">Track sponsor</span>
-          <div class="sponsor-signal" aria-hidden="true"><span></span><span></span><span></span></div>
-          <p>To be revealed</p>
+        <div class="sponsor-tier" role="group" aria-labelledby="supporting-sponsors-title">
+          <h3 id="supporting-sponsors-title">Supporting sponsors</h3>
+          <ul class="sponsor-lineup">
+            <li class="sponsor-slot"><div class="sponsor-signal" aria-hidden="true"><span></span><span></span><span></span></div><p>To be revealed</p></li>
+            <li class="sponsor-slot"><div class="sponsor-signal" aria-hidden="true"><span></span><span></span><span></span></div><p>To be revealed</p></li>
+            <li class="sponsor-slot"><div class="sponsor-signal" aria-hidden="true"><span></span><span></span><span></span></div><p>To be revealed</p></li>
+          </ul>
         </div>
       </div>
       <canvas class="horizon horizon-sponsors" data-landscape="nebula" aria-hidden="true"></canvas>
-      <nav class="section-nav" aria-label="Sponsors section navigation">
-        <a href="#top"><span class="section-arrow" aria-hidden="true">↑</span><span>Home</span></a>
-        <a href="#timeline" class="section-next"><span>Timeline</span><span class="section-arrow" aria-hidden="true">↓</span></a>
-      </nav>
     </section>
 
     <section id="timeline" class="timeline section" aria-labelledby="timeline-title">
@@ -127,10 +119,6 @@
         <li><span class="timeline-marker" aria-hidden="true"></span><time class="timeline-date" datetime="2026-11-07T09:00:00+00:00">7 November 2026</time><h3>Hacking begins</h3><p>09:00</p></li>
         <li><span class="timeline-marker" aria-hidden="true"></span><time class="timeline-date" datetime="2026-11-08T18:00:00+00:00">8 November 2026</time><h3>Hacking finishes</h3><p>18:00</p></li>
       </ol>
-      <nav class="section-nav" aria-label="Timeline section navigation">
-        <a href="#sponsors"><span class="section-arrow" aria-hidden="true">↑</span><span>Sponsors</span></a>
-        <a href="#apply" class="section-next"><span>Apply</span><span class="section-arrow" aria-hidden="true">↓</span></a>
-      </nav>
     </section>
 
     <section id="apply" class="apply section" aria-labelledby="apply-title">
@@ -148,10 +136,6 @@
         <a class="application-contact" href="mailto:events@uclai.co.uk">Questions? events@uclai.co.uk</a>
       </div>
       <canvas class="horizon horizon-apply" data-landscape="footer" aria-hidden="true"></canvas>
-      <nav class="section-nav" aria-label="Apply section navigation">
-        <a href="#timeline"><span class="section-arrow" aria-hidden="true">↑</span><span>Timeline</span></a>
-        <a href="#top" class="section-next"><span>Back to top</span><span class="section-arrow" aria-hidden="true">↑</span></a>
-      </nav>
     </section>
   </main>
 
@@ -172,7 +156,7 @@
     </div>
   </footer>
 </div>
-<script src="main.js?v=20261014-9"></script>
+<script src="main.js?v=20261014-10"></script>
 <script defer async src="https://apply.devfolio.co/v2/sdk.js"></script>
 </body>
 </html>

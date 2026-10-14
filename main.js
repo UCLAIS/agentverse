@@ -3,7 +3,6 @@
 
   // Effect settings (the design's default props).
   const CONFIG = {
-    trailStyle: 'pixels',   // 'pixels' | 'glow'
     showPixelComets: true,
     showAgents: true,
     showMilkyWay: true,
@@ -22,7 +21,7 @@
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   let W = 0, H = 0, dpr = 1;
-  let stars = [], parts = [], pix = [], last = null, lastCell = null;
+  let stars = [], pix = [], last = null;
   let meteor = null, nextMeteor = 5000, groups = [];
   let comets = [], lt = 0, sky = null, skyH = 0;
 
@@ -53,7 +52,7 @@
       c.width = W * dpr; c.height = H * dpr;
       c.getContext('2d').setTransform(dpr, 0, 0, dpr, 0, 0);
     });
-    pix = []; parts = []; resetPointer();
+    resetPointer();
     makeStars(); buildSky(); buildAgents(); drawLandscapes();
     // Only size the host iframe; Devfolio owns the button's font and colours.
     document.querySelectorAll('.devfolio-apply').forEach(container => {
@@ -129,39 +128,55 @@
 
   /* ---------- Cursor trail ---------- */
 
+  const TRAIL_SPACING = 3, TRAIL_LIFETIME = 220, TRAIL_LIMIT = 240;
+
   function resetPointer() {
     last = null;
-    lastCell = null;
+    pix = [];
+    trailCanvas.getContext('2d').clearRect(0, 0, W, H);
+  }
+
+  function addTrailPoint(x, y, born) {
+    const px = Math.round(x), py = Math.round(y), previous = pix[pix.length - 1];
+    if (previous && previous.x === px && previous.y === py) previous.born = born;
+    else pix.push({ x: px, y: py, born });
   }
 
   function onMove(e) {
-    const x = e.clientX, y = e.clientY;
-    // Keep the native cursor, and avoid drawing from touch/pen gestures.
-    if (!CONFIG.showTrail || reduced || e.pointerType !== 'mouse') { resetPointer(); return; }
-    const k = CONFIG.trailIntensity;
-    if (!last) last = { x, y };
-    if (last) {
-      const dx = x - last.x, dy = y - last.y;
-      const n = Math.max(1, Math.min(6, Math.ceil(Math.hypot(dx, dy) / 5)));
-      const pixels = CONFIG.trailStyle === 'pixels';
-      for (let i = 0; i < n; i++) {
-        const t = i / n, px = last.x + dx * t, py = last.y + dy * t;
-        if (pixels) {
-          const cs = 4, gx = Math.floor(px / cs), gy = Math.floor(py / cs), key = gx + ',' + gy;
-          if (key !== lastCell) {
-            lastCell = key;
-            pix.push({ gx, gy, cs, life: 1, c: PAL[Math.floor(Math.random() * PAL.length)] });
-            if (Math.random() < .3) pix.push({ gx: gx - Math.sign(dx || 1), gy: gy - Math.sign(dy || 1), cs, life: .7, c: PAL[Math.floor(Math.random() * PAL.length)] });
-          }
-        } else {
-          parts.push({ x: px, y: py, vx: -dx * .015 + (Math.random() - .5) * .3, vy: -dy * .015 + (Math.random() - .5) * .3, life: 1, r: (.8 + Math.random() * 1.1) * Math.sqrt(k) });
+    if (!CONFIG.showTrail || reduced || e.pointerType !== 'mouse' || e.target?.tagName === 'IFRAME') {
+      resetPointer(); return;
+    }
+    const now = performance.now();
+    const samples = typeof e.getCoalescedEvents === 'function' ? e.getCoalescedEvents() : [];
+    // Coalesced samples retain curves; the final event always supplies the head.
+    for (const sample of [...samples, e]) {
+      const x = sample.clientX, y = sample.clientY;
+      const eventTime = Number.isFinite(sample.timeStamp) && sample.timeStamp > 0 && sample.timeStamp <= now ? sample.timeStamp : now;
+      const born = Math.max(last?.born || 0, eventTime);
+      if (!last) addTrailPoint(x, y, born);
+      else {
+        const dx = x - last.x, dy = y - last.y;
+        const count = Math.max(1, Math.ceil(Math.hypot(dx, dy) / TRAIL_SPACING));
+        // Discard only the oldest portion of an exceptionally long sweep.
+        for (let i = Math.max(1, count - TRAIL_LIMIT + 1); i <= count; i++) {
+          addTrailPoint(last.x + dx * i / count, last.y + dy * i / count, last.born + (born - last.born) * i / count);
         }
       }
+      if (pix.length > TRAIL_LIMIT) pix.splice(0, pix.length - TRAIL_LIMIT);
+      last = { x, y, born };
     }
-    // Bound work even on high-frequency gaming mice.
-    if (pix.length > 90) pix = pix.slice(-90);
-    if (parts.length > 48) parts = parts.slice(-48);
-    last = { x, y };
+  }
+
+  function drawTrail(t) {
+    const c = trailCanvas.getContext('2d');
+    c.clearRect(0, 0, W, H);
+    pix = pix.filter(p => t - p.born < TRAIL_LIFETIME);
+    for (const p of pix) {
+      const age = Math.max(0, (t - p.born) / TRAIL_LIFETIME);
+      const r = Math.round(34 + 78 * age), g = Math.round(208 - 126 * age), b = Math.round(232 + 8 * age);
+      c.fillStyle = `rgba(${r},${g},${b},${.75 * CONFIG.trailIntensity * (1 - age) ** 2})`;
+      c.fillRect(p.x - 1, p.y - 1, 3, 3);
+    }
   }
 
   /* ---------- Scroll reveal ---------- */
@@ -379,24 +394,7 @@
     drawMeteor(c, t);
     if (CONFIG.showAgents) drawAgents(c, t, sy);
 
-    const x = trailCanvas.getContext('2d');
-    x.clearRect(0, 0, W, H);
-    const k = CONFIG.trailIntensity;
-    if (pix.length) {
-      pix = pix.filter(p => (p.life -= dt / 450) > 0);
-      for (const p of pix) { x.fillStyle = `rgba(${p.c},${Math.min(1, p.life * .6 * k)})`; x.fillRect(p.gx * p.cs, p.gy * p.cs, p.cs - 1, p.cs - 1); }
-    }
-    if (!parts.length) return;
-    x.globalCompositeOperation = 'lighter';
-    parts = parts.filter(p => (p.life -= dt / 450) > 0);
-    for (const p of parts) {
-      p.x += p.vx; p.y += p.vy; p.vx *= .95; p.vy *= .95; p.vy += .02;
-      const l = p.life, r = p.r * (0.4 + l), rr = Math.round(124 + 96 * l), g = Math.round(108 + 142 * l * l), a = Math.min(1, l * .32 * k);
-      const grd = x.createRadialGradient(p.x, p.y, 0, p.x, p.y, r * 3);
-      grd.addColorStop(0, `rgba(${rr},${g},255,${a})`); grd.addColorStop(1, `rgba(${rr},${g},255,0)`);
-      x.fillStyle = grd; x.beginPath(); x.arc(p.x, p.y, r * 3, 0, TAU); x.fill();
-    }
-    x.globalCompositeOperation = 'source-over';
+    drawTrail(t);
   }
 
   /* ---------- Wiring ---------- */
@@ -428,6 +426,15 @@
   window.addEventListener('resize', resize);
   window.addEventListener('pointermove', onMove, { passive: true });
   document.addEventListener('pointerleave', resetPointer);
+  document.addEventListener('pointerover', e => {
+    if (e.target?.tagName === 'IFRAME') resetPointer();
+  });
+  document.addEventListener('pointerout', e => {
+    if (e.relatedTarget?.tagName === 'IFRAME') resetPointer();
+  });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) resetPointer();
+  });
   window.addEventListener('blur', resetPointer);
 
   buildStarMap();
