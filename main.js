@@ -378,7 +378,22 @@
 
   /* ---------- Wiring ---------- */
 
+  function setupSectionNavigation() {
+    const links = [...document.querySelectorAll('.header-nav a')];
+    const markCurrent = id => links.forEach(link => {
+      if (link.getAttribute('href') === '#' + id) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) markCurrent(entry.target.id);
+      });
+    }, { rootMargin: '-40% 0px -40% 0px', threshold: 0 });
+    document.querySelectorAll('main > section').forEach(section => observer.observe(section));
+  }
+
   document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+    if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     const target = document.getElementById(a.getAttribute('href').slice(1));
     if (!target) return;
     e.preventDefault(); smoothTo(target);
@@ -394,6 +409,7 @@
   buildStarMap();
   resize();
   setupReveal();
+  setupSectionNavigation();
   const loop = t => { draw(t); requestAnimationFrame(loop); };
   if (!reduced) requestAnimationFrame(loop);
 })();
