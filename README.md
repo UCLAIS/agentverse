@@ -23,7 +23,10 @@ the hero, sponsors, registration timeline, application section and footer.
 
 Applications open on 19 October 2026 at 00:00 and close on 30 October at 23:59.
 Hacking runs from 09:00 on 7 November to 18:00 on 8 November. All times are London time.
-One main sponsor and three supporting sponsor slots await names and logos.
+Jane Street is a supporting sponsor for the Finance track. Its supplied white SVG
+wordmark sits directly on the space background. Phones use the same artwork's
+compact emblem with a readable name; the emblem's SVG viewBox crops the wordmark.
+The main sponsor and two remaining supporting sponsor slots await names and logos.
 The application section links directly to Builderbase at
 `https://builderbase.com/event/agentverse/register`. Builderbase handles sign-in
 and the application/dashboard flow. No API integration is needed for this link.
