@@ -40,6 +40,10 @@ The application section lists Finance, Biotech, Creative (non-technical) and
 Robotics, and links directly to Builderbase at
 `https://builderbase.com/event/agentverse/register`. Builderbase handles sign-in
 and the application/dashboard flow. No API integration is needed for this link.
+Seven FAQs sit between the timeline and application section. Native details and
+summary controls work with keyboard, touch and without JavaScript. The section
+fills at least the viewport and grows as answers open. Questions go to
+`info@uclai.co.uk` throughout the page.
 
 Effect settings (star count, toggles) live in the `CONFIG` object at the top of `main.js`.
 The crisp pixel cursor trail samples the full mouse path every 3px, including
