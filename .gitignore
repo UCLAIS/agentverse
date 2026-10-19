@@ -1,0 +1,2 @@
+# Local Builderbase source; never include in the GitHub Pages deployment.
+/builderbase/
