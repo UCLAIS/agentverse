@@ -54,18 +54,6 @@
     });
     resetPointer();
     makeStars(); buildSky(); buildAgents(); drawLandscapes();
-    // Only size the host iframe; Devfolio owns the button's font and colours.
-    document.querySelectorAll('.devfolio-apply').forEach(container => {
-      const width = Math.floor(container.clientWidth);
-      if (!width) return;
-      const placeholder = container.querySelector('.apply-button');
-      if (placeholder) {
-        placeholder.dataset.buttonWidth = String(width);
-        placeholder.style.width = width + 'px';
-      }
-      const frame = container.querySelector('.devfolio-button-iframe');
-      if (frame) frame.style.width = width + 'px';
-    });
     if (reduced) draw(0);
   }
 

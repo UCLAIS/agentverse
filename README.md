@@ -23,16 +23,9 @@ the hero, sponsors, registration timeline, application section and footer.
 
 Applications open on 19 October 2026 at 00:00 and close on 30 October at 23:59.
 Hacking runs from 09:00 on 7 November to 18:00 on 8 November. All times are London time.
-One main sponsor and three supporting sponsor slots await names and logos. Devfolio is credited as the
-community partner in the footer, using its official white logo and required alt text.
-
-The official Apply with Devfolio SDK is included once with the `agentverse`
-slug and its standard `light` theme. Its original font, colours and 44px height
-are preserved. Only the iframe width adapts to the available space, up to 312px.
-Devfolio controls availability and requires the event to be verified and the
-website configured as `https://agentverse.uclai.co.uk/`.
-For a local SDK preview, use `http://localhost:8765/`, as the SDK permits HTTPS
-or a `localhost` hostname rather than `127.0.0.1`.
+One main sponsor and three supporting sponsor slots await names and logos.
+The application section lists the dates and contact email; a replacement
+application link has not yet been supplied.
 
 Effect settings (star count, toggles) live in the `CONFIG` object at the top of `main.js`.
 The crisp pixel cursor trail samples the full mouse path every 3px, including
