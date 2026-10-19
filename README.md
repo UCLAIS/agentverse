@@ -21,6 +21,10 @@ downloads. A violet galaxy,
 pixel stars and layered nebula landscapes carry the designer's palette through
 the hero, sponsors, registration timeline, application section and footer.
 
+The 1200×630 social-sharing image, `assets/og-image-2026.jpg`, uses the same
+designer wordmark, pixel duck, cyan planet and violet artwork. Open Graph and
+Twitter metadata share this versioned URL so previews can fetch the current design.
+
 Applications open on 19 October 2026 at 00:00 and close on 30 October at 23:59.
 Hacking runs from 09:00 on 7 November to 18:00 on 8 November. All times are London time.
 Google DeepMind is the Main AI sponsor, shown prominently with the supplied white
