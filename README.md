@@ -31,7 +31,8 @@ compact emblem with a readable name; the emblem's SVG viewBox crops the wordmark
 NVIDIA is a supporting sponsor. Its supplied transparent PNG is framed with CSS
 to remove the empty margins; phones show the emblem and a readable company name.
 One remaining supporting sponsor slot awaits a name and logo.
-The application section links directly to Builderbase at
+The application section lists Finance, Biotech, Creative (non-technical) and
+Robotics, and links directly to Builderbase at
 `https://builderbase.com/event/agentverse/register`. Builderbase handles sign-in
 and the application/dashboard flow. No API integration is needed for this link.
 
