@@ -25,7 +25,7 @@ Applications open on 19 October 2026 at 00:00 and close on 30 October at 23:59.
 Hacking runs from 09:00 on 7 November to 18:00 on 8 November. All times are London time.
 Google DeepMind is the Main AI sponsor, shown prominently with the supplied white
 Google DeepMind wordmark against the space background.
-Jane Street is a supporting sponsor for the Finance track. Its supplied white SVG
+Jane Street is a supporting sponsor. Its supplied white SVG
 wordmark sits directly on the space background. Phones use the same artwork's
 compact emblem with a readable name; the emblem's SVG viewBox crops the wordmark.
 Two remaining supporting sponsor slots await names and logos.
