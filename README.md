@@ -24,8 +24,9 @@ the hero, sponsors, registration timeline, application section and footer.
 Applications open on 19 October 2026 at 00:00 and close on 30 October at 23:59.
 Hacking runs from 09:00 on 7 November to 18:00 on 8 November. All times are London time.
 One main sponsor and three supporting sponsor slots await names and logos.
-The application section lists the dates and contact email; a replacement
-application link has not yet been supplied.
+The application section links directly to Builderbase at
+`https://builderbase.com/event/agentverse/register`. Builderbase handles sign-in
+and the application/dashboard flow. No API integration is needed for this link.
 
 Effect settings (star count, toggles) live in the `CONFIG` object at the top of `main.js`.
 The crisp pixel cursor trail samples the full mouse path every 3px, including
