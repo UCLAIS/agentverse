@@ -28,7 +28,9 @@ Google DeepMind wordmark against the space background.
 Jane Street is a supporting sponsor. Its supplied white SVG
 wordmark sits directly on the space background. Phones use the same artwork's
 compact emblem with a readable name; the emblem's SVG viewBox crops the wordmark.
-Two remaining supporting sponsor slots await names and logos.
+NVIDIA is a supporting sponsor. Its supplied transparent PNG is framed with CSS
+to remove the empty margins; phones show the emblem and a readable company name.
+One remaining supporting sponsor slot awaits a name and logo.
 The application section links directly to Builderbase at
 `https://builderbase.com/event/agentverse/register`. Builderbase handles sign-in
 and the application/dashboard flow. No API integration is needed for this link.
