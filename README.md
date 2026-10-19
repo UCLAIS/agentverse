@@ -30,7 +30,8 @@ wordmark sits directly on the space background. Phones use the same artwork's
 compact emblem with a readable name; the emblem's SVG viewBox crops the wordmark.
 NVIDIA is a supporting sponsor. Its supplied transparent PNG is framed with CSS
 to remove the empty margins; phones show the emblem and a readable company name.
-One remaining supporting sponsor slot awaits a name and logo.
+Canva completes the supporting sponsor row with the supplied transparent white
+wordmark, sized for readability on phones and desktop.
 The application section lists Finance, Biotech, Creative (non-technical) and
 Robotics, and links directly to Builderbase at
 `https://builderbase.com/event/agentverse/register`. Builderbase handles sign-in
