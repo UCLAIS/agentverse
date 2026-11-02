@@ -355,3 +355,11 @@ h2 { margin: 0; font-family: var(--font-display); font-size: clamp(38px, 4.6vw, 
   .reveal-ready [data-reveal] { opacity: 1; transform: none; transition: none; }
   .button, .nav-link, .sponsor-logo-link, .sponsor-main-link { transition: none; }
 }
+
+/* Closed admissions are information, rather than a disabled action. */
+.applications-status { display: flex; flex-direction: column; gap: 6px; padding-left: 16px; border-left: 2px solid var(--lavender); }
+.applications-status strong { font-size: 17px; font-weight: 500; color: var(--text); }
+.applications-status span { font-size: 14px; color: var(--muted); line-height: 1.5; }
+@media (max-width: 767px) {
+  .applications-status { flex-basis: 100%; }
+}
