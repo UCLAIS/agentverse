@@ -37,7 +37,7 @@
 <link rel="preload" as="image" href="assets/agentverse-wordmark.webp" imagesrcset="assets/agentverse-wordmark-640.webp 640w, assets/agentverse-wordmark-1280.webp 1280w, assets/agentverse-wordmark.webp 4096w" imagesizes="(max-width: 400px) calc(100vw - 48px), (min-width: 1600px) 1400px, 88vw" fetchpriority="high">
 <link rel="preload" as="image" href="assets/designer-space-mobile.webp" media="(max-width: 767px)" fetchpriority="high">
 <link rel="preload" as="image" href="assets/designer-space-display.webp" media="(min-width: 768px)" fetchpriority="high">
-<link rel="stylesheet" href="styles.css?v=20261107-1">
+<link rel="stylesheet" href="styles.css?v=20261107-2">
 </head>
 <body>
 <div class="root" id="root">
@@ -88,52 +88,15 @@
         <h2>Our sponsors.</h2>
         <p class="section-description">The partners making AgentVerse possible.</p>
       </div>
-      <div data-reveal="1" class="sponsor-tiers">
-        <div class="sponsor-tier" role="group" aria-labelledby="main-sponsor-title">
-          <h3 id="main-sponsor-title">Main AI sponsor</h3>
-          <div class="sponsor-slot sponsor-slot-main">
-            <a class="sponsor-main-link" href="https://deepmind.google/" target="_blank" rel="noopener" aria-label="Google DeepMind, Main AI sponsor">
-              <img src="assets/google-deepmind-wordmark.png" width="3861" height="512" alt="Google DeepMind" loading="lazy">
-            </a>
-          </div>
-        </div>
-        <div class="sponsor-tier" role="group" aria-labelledby="supporting-sponsors-title">
-          <h3 id="supporting-sponsors-title">Supporting sponsors</h3>
-          <ul class="sponsor-lineup">
-            <li class="sponsor-slot">
-              <a class="sponsor-logo-link" href="https://www.janestreet.com/" target="_blank" rel="noopener" aria-label="Jane Street, supporting sponsor">
-                <picture>
-                  <source media="(max-width: 767px), (max-width: 1024px) and (max-height: 500px)" srcset="assets/jane-street-symbol.svg">
-                  <img src="assets/jane-street-wordmark.svg" width="302" height="80" alt="Jane Street" loading="lazy">
-                </picture>
-              </a>
-              <p class="sponsor-company">Jane Street</p>
-            </li>
-            <li class="sponsor-slot">
-              <a class="sponsor-logo-link" href="https://www.nvidia.com/" target="_blank" rel="noopener" aria-label="NVIDIA, supporting sponsor">
-                <span class="nvidia-logo-art">
-                  <img src="assets/nvidia-white.png" width="3840" height="2160" alt="NVIDIA" loading="lazy">
-                </span>
-              </a>
-              <p class="sponsor-company">NVIDIA</p>
-            </li>
-            <li class="sponsor-slot">
-              <a class="sponsor-logo-link sponsor-logo-link-canva" href="https://www.canva.com/" target="_blank" rel="noopener" aria-label="Canva, supporting sponsor">
-                <img src="assets/canva-wordmark-white.png" width="1464" height="512" alt="Canva" loading="lazy">
-              </a>
-              <p class="sponsor-company">Canva</p>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="event-partners" role="group" aria-labelledby="partners-title">
-        <h3 id="partners-title">Partners</h3>
-        <ul class="partner-lineup">
-          <li class="partner-logo"><img src="assets/modal-logo.png" width="3362" height="634" alt="Modal" loading="lazy"></li>
-          <li class="partner-logo partner-logo-light"><img src="assets/redberry-logo.png" width="1080" height="270" alt="Redberry" loading="lazy"></li>
-          <li class="partner-logo partner-logo-light"><img src="assets/encode-club-logo.png" width="1102" height="582" alt="Encode Club" loading="lazy"></li>
-        </ul>
-      </div>
+      <ul data-reveal="1" class="sponsors-grid" aria-label="Event sponsors">
+        <li><a class="sponsor-mark mark-canva" href="https://www.canva.com/" target="_blank" rel="noopener"><img src="assets/canva-wordmark-white.png" width="1464" height="512" alt="Canva" loading="lazy"></a></li>
+        <li><div class="sponsor-mark mark-encode"><img class="logo-white" src="assets/encode-club-logo.png" width="1102" height="582" alt="Encode Club" loading="lazy"></div></li>
+        <li><a class="sponsor-mark mark-deepmind" href="https://deepmind.google/" target="_blank" rel="noopener"><img src="assets/google-deepmind-wordmark.png" width="3861" height="512" alt="Google DeepMind" loading="lazy"></a></li>
+        <li><a class="sponsor-mark mark-jane-street" href="https://www.janestreet.com/" target="_blank" rel="noopener"><img src="assets/jane-street-wordmark.svg" width="302" height="80" alt="Jane Street" loading="lazy"></a></li>
+        <li><a class="sponsor-mark mark-modal" href="https://modal.com/" target="_blank" rel="noopener"><img src="assets/modal-logo.png" width="3362" height="634" alt="Modal" loading="lazy"></a></li>
+        <li><a class="sponsor-mark mark-nvidia" href="https://www.nvidia.com/" target="_blank" rel="noopener"><span class="nvidia-crop"><img src="assets/nvidia-white.png" width="3840" height="2160" alt="NVIDIA" loading="lazy"></span></a></li>
+        <li><div class="sponsor-mark mark-redberry"><img class="logo-white" src="assets/redberry-logo.png" width="1080" height="270" alt="Redberry" loading="lazy"></div></li>
+      </ul>
       <canvas class="horizon horizon-sponsors" data-landscape="nebula" aria-hidden="true"></canvas>
     </section>
 
@@ -144,25 +107,37 @@
         <a href="assets/participant-timetable.pdf" class="timetable-download" download>Download timetable (PDF) <span aria-hidden="true">↗</span></a>
       </div>
       <div class="timetable-days">
-        <section class="timetable-day" aria-labelledby="day-0"><h3 id="day-0">Saturday, 7 November</h3><ol>
-          <li><span class="schedule-time">09:00-11:00</span><div><h4>Check-in and registration</h4></div></li>
-          <li><span class="schedule-time">11:00-11:30</span><div><h4>Keynote: Jude Umeh</h4><p>The way global platforms are changing the way we work in the age of AI.</p></div></li>
-          <li><span class="schedule-time">11:30-12:00</span><div><h4>Google DeepMind/Argon 4 showcase</h4></div></li>
-          <li><span class="schedule-time">12:00-12:30</span><div><h4>Modal showcase</h4></div></li>
-          <li><span class="schedule-time">12:30</span><div><h4>Track reveal</h4></div></li>
-          <li><span class="schedule-time">13:00-14:00</span><div><h4>Lunch and networking</h4></div></li>
-          <li class="schedule-deadline"><span class="schedule-time">Due 14:00</span><div><h4>Team formations</h4></div></li>
-          <li><span class="schedule-time">14:00-19:00</span><div><h4>Hacking session 1</h4></div></li>
-          <li><span class="schedule-time">19:00-20:00</span><div><h4>Dinner and socialising</h4></div></li>
-          <li><span class="schedule-time">20:00-22:00</span><div><h4>Hacking session 2</h4></div></li>
-        </ol></section>
-        <section class="timetable-day" aria-labelledby="day-1"><h3 id="day-1">Sunday, 8 November</h3><ol>
-          <li><span class="schedule-time">09:00-14:00</span><div><h4>Final hacking sprint</h4></div></li>
-          <li class="schedule-deadline"><span class="schedule-time">Due 14:00</span><div><h4>Final submissions</h4></div></li>
-          <li><span class="schedule-time">14:00-15:00</span><div><h4>Lunch</h4></div></li>
-          <li><span class="schedule-time">15:00-16:00</span><div><h4>Judging sessions</h4></div></li>
-          <li><span class="schedule-time">16:00-17:00</span><div><h4>Closing ceremony and awards</h4></div></li>
-        </ol></section>
+        <section class="timetable-day" aria-labelledby="day-0">
+          <h3 id="day-0">Saturday, 7 November</h3>
+          <div class="schedule-route">
+            <svg class="schedule-line" aria-hidden="true" focusable="false"><path></path></svg>
+            <ol class="schedule-stops">
+              <li class="schedule-stop schedule-key" style="--route-column: 1; --route-row: 1"><span class="schedule-node" aria-hidden="true"></span><div class="schedule-content"><span class="schedule-time">09:00-11:00</span><h4>Check-in and registration</h4></div></li>
+              <li class="schedule-stop" style="--route-column: 2; --route-row: 1"><span class="schedule-node" aria-hidden="true"></span><div class="schedule-content"><span class="schedule-time">11:00-11:30</span><h4>Keynote: Jude Umeh</h4><p>The way global platforms are changing the way we work in the age of AI.</p></div></li>
+              <li class="schedule-stop" style="--route-column: 3; --route-row: 1"><span class="schedule-node" aria-hidden="true"></span><div class="schedule-content"><span class="schedule-time">11:30-12:00</span><h4>Google DeepMind/Argon 4 showcase</h4></div></li>
+              <li class="schedule-stop" style="--route-column: 3; --route-row: 2"><span class="schedule-node" aria-hidden="true"></span><div class="schedule-content"><span class="schedule-time">12:00-12:30</span><h4>Modal showcase</h4></div></li>
+              <li class="schedule-stop schedule-key" style="--route-column: 2; --route-row: 2"><span class="schedule-node" aria-hidden="true"></span><div class="schedule-content"><span class="schedule-time">12:30</span><h4>Track reveal</h4></div></li>
+              <li class="schedule-stop" style="--route-column: 1; --route-row: 2"><span class="schedule-node" aria-hidden="true"></span><div class="schedule-content"><span class="schedule-time">13:00-14:00</span><h4>Lunch and networking</h4></div></li>
+              <li class="schedule-stop schedule-key schedule-deadline" style="--route-column: 1; --route-row: 3"><span class="schedule-node" aria-hidden="true"></span><div class="schedule-content"><span class="schedule-time">Due 14:00</span><h4>Team formations</h4></div></li>
+              <li class="schedule-stop" style="--route-column: 2; --route-row: 3"><span class="schedule-node" aria-hidden="true"></span><div class="schedule-content"><span class="schedule-time">14:00-19:00</span><h4>Hacking session 1</h4></div></li>
+              <li class="schedule-stop" style="--route-column: 3; --route-row: 3"><span class="schedule-node" aria-hidden="true"></span><div class="schedule-content"><span class="schedule-time">19:00-20:00</span><h4>Dinner and socialising</h4></div></li>
+              <li class="schedule-stop" style="--route-column: 3; --route-row: 4"><span class="schedule-node" aria-hidden="true"></span><div class="schedule-content"><span class="schedule-time">20:00-22:00</span><h4>Hacking session 2</h4></div></li>
+            </ol>
+          </div>
+        </section>
+        <section class="timetable-day" aria-labelledby="day-1">
+          <h3 id="day-1">Sunday, 8 November</h3>
+          <div class="schedule-route">
+            <svg class="schedule-line" aria-hidden="true" focusable="false"><path></path></svg>
+            <ol class="schedule-stops">
+              <li class="schedule-stop" style="--route-column: 1; --route-row: 1"><span class="schedule-node" aria-hidden="true"></span><div class="schedule-content"><span class="schedule-time">09:00-14:00</span><h4>Final hacking sprint</h4></div></li>
+              <li class="schedule-stop schedule-key schedule-deadline" style="--route-column: 2; --route-row: 1"><span class="schedule-node" aria-hidden="true"></span><div class="schedule-content"><span class="schedule-time">Due 14:00</span><h4>Final submissions</h4></div></li>
+              <li class="schedule-stop" style="--route-column: 3; --route-row: 1"><span class="schedule-node" aria-hidden="true"></span><div class="schedule-content"><span class="schedule-time">14:00-15:00</span><h4>Lunch</h4></div></li>
+              <li class="schedule-stop schedule-key" style="--route-column: 3; --route-row: 2"><span class="schedule-node" aria-hidden="true"></span><div class="schedule-content"><span class="schedule-time">15:00-16:00</span><h4>Judging sessions</h4></div></li>
+              <li class="schedule-stop schedule-key" style="--route-column: 2; --route-row: 2"><span class="schedule-node" aria-hidden="true"></span><div class="schedule-content"><span class="schedule-time">16:00-17:00</span><h4>Closing ceremony and awards</h4></div></li>
+            </ol>
+          </div>
+        </section>
       </div>
     </section>
 
@@ -209,6 +184,6 @@
     </div>
   </footer>
 </div>
-<script src="main.js?v=20261019-1"></script>
+<script src="main.js?v=20261107-2"></script>
 </body>
 </html>

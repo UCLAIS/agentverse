@@ -193,6 +193,56 @@
     el.scrollIntoView({ behavior: reduced ? 'instant' : 'smooth', block: 'start' });
   }
 
+  /* A static route follows the real stop positions, including wrapped copy.
+     The ordered lists remain chronological and readable without JavaScript. */
+  function setupTimetableRoutes() {
+    const routes = [...document.querySelectorAll('.schedule-route')];
+    if (!routes.length) return;
+    const mobile = window.matchMedia('(max-width: 959px)');
+    const drawRoute = route => {
+      const box = route.getBoundingClientRect();
+      const points = [...route.querySelectorAll('.schedule-node')].map(node => {
+        const rect = node.getBoundingClientRect();
+        return { x: rect.left + rect.width / 2 - box.left,
+          y: rect.top + rect.height / 2 - box.top };
+      });
+      if (!box.width || !points.length) return;
+      const svg = route.querySelector('svg');
+      svg.setAttribute('viewBox', `0 0 ${box.width} ${box.height}`);
+      let path = `M ${points[0].x} ${points[0].y}`;
+      points.slice(1).forEach((point, index) => {
+        const previous = points[index];
+        if (mobile.matches) {
+          const middle = (previous.y + point.y) / 2;
+          path += ` C ${previous.x} ${middle}, ${point.x} ${middle}, ${point.x} ${point.y}`;
+        } else if (Math.abs(point.y - previous.y) < 1) {
+          path += ` L ${point.x} ${point.y}`;
+        } else {
+          const direction = Math.floor(index / 3) % 2 === 0 ? 1 : -1;
+          const edge = direction === 1 ? box.width + 16 : -16;
+          const radius = 16;
+          path += ` L ${edge - direction * radius} ${previous.y}`
+            + ` Q ${edge} ${previous.y}, ${edge} ${previous.y + radius}`
+            + ` L ${edge} ${point.y - radius}`
+            + ` Q ${edge} ${point.y}, ${edge - direction * radius} ${point.y}`
+            + ` L ${point.x} ${point.y}`;
+        }
+      });
+      svg.querySelector('path').setAttribute('d', path);
+    };
+    let frame;
+    const update = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => routes.forEach(drawRoute));
+    };
+    if ('ResizeObserver' in window) {
+      const observer = new ResizeObserver(update);
+      routes.forEach(route => observer.observe(route));
+    } else window.addEventListener('resize', update);
+    document.fonts?.ready.then(update);
+    update();
+  }
+
   /* ---------- Starfield ---------- */
 
   function makeStars() {
@@ -429,6 +479,7 @@
   resize();
   setupReveal();
   setupSectionNavigation();
+  setupTimetableRoutes();
   const loop = t => { draw(t); requestAnimationFrame(loop); };
   if (!reduced) requestAnimationFrame(loop);
 })();

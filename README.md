@@ -29,19 +29,12 @@ The participant timetable covers 7-8 November 2026, from Saturday check-in
 at 09:00 to Sunday's closing ceremony and awards at 16:00-17:00.
 All 15 entries are transcribed from `assets/participant-timetable.pdf`, also
 available to download from the page. All times are London time.
-Google DeepMind is the Main AI sponsor, shown prominently with the supplied white
-Google DeepMind wordmark against the space background.
-Jane Street is a supporting sponsor. Its supplied white SVG
-wordmark sits directly on the space background. Phones use the same artwork's
-compact emblem with a readable name; the emblem's SVG viewBox crops the wordmark.
-NVIDIA is a supporting sponsor. Its supplied transparent PNG is framed with CSS
-to remove the empty margins; phones show the emblem and a readable company name.
-Canva completes the supporting sponsor row with the supplied transparent white
-wordmark, sized for readability on phones and desktop.
-Modal, Redberry and Encode Club appear in a separate Partners row with the
-supplied logos. Redberry and Encode Club sit on light backplates for contrast.
-Five participant FAQs use native details and
-summary controls work with keyboard, touch and without JavaScript. The section
+All seven sponsors share one grid with equal billing: Canva, Encode Club,
+Google DeepMind, Jane Street, Modal, NVIDIA and Redberry. Optical sizing balances
+the different logo proportions. CSS renders Redberry and Encode Club in white
+using the original transparent assets, without light background panels.
+Five participant FAQs use native details and summary controls that work with
+keyboard, touch and without JavaScript. The section
 fills at least the viewport and grows as answers open. Questions go to
 `info@uclai.co.uk` throughout the page.
 
@@ -52,7 +45,10 @@ coalesced input and the latest position. It fades over 220ms, caps live pixels a
 The native cursor, touch gestures and reduced-motion support are preserved.
 
 Each main section fills at least the current viewport and grows for longer
-content. The timetable uses two day columns on desktop and stacks on phones. The persistent top navigation uses browser-native smooth scrolling
+content. The timetable snakes across three columns on desktop and follows a winding
+vertical path on smaller screens. Key moments and deadlines have cyan highlights.
+A ResizeObserver keeps the path aligned with the stops when copy wraps or the
+viewport changes; all event text remains accessible without JavaScript. The persistent top navigation uses browser-native smooth scrolling
 and respects reduced motion; bottom previous/next controls have been removed.
 
 ## Run locally
