@@ -19,14 +19,16 @@ constellation labels while keeping the planet and nebula. Phones receive a small
 background variant, and responsive wordmark and logo variants avoid oversized
 downloads. A violet galaxy,
 pixel stars and layered nebula landscapes carry the designer's palette through
-the hero, sponsors, registration timeline, application section and footer.
+the hero, sponsors, participant timetable and footer.
 
 The 1200×630 social-sharing image, `assets/og-image-2026.jpg`, uses the same
 designer wordmark, pixel duck, cyan planet and violet artwork. Open Graph and
 Twitter metadata share this versioned URL so previews can fetch the current design.
 
-Applications open on 19 October 2026 at 00:00 and close on 30 October at 23:59.
-Hacking runs from 09:00 on 7 November to 18:00 on 8 November. All times are London time.
+The participant timetable covers 7-8 November 2026, from Saturday check-in
+at 09:00 to Sunday's closing ceremony and awards at 16:00-17:00.
+All 15 entries are transcribed from `assets/participant-timetable.pdf`, also
+available to download from the page. All times are London time.
 Google DeepMind is the Main AI sponsor, shown prominently with the supplied white
 Google DeepMind wordmark against the space background.
 Jane Street is a supporting sponsor. Its supplied white SVG
@@ -36,11 +38,9 @@ NVIDIA is a supporting sponsor. Its supplied transparent PNG is framed with CSS
 to remove the empty margins; phones show the emblem and a readable company name.
 Canva completes the supporting sponsor row with the supplied transparent white
 wordmark, sized for readability on phones and desktop.
-The application section lists Finance, Biotech, Creative (non-technical) and
-Robotics, and links directly to Builderbase at
-`https://builderbase.com/event/agentverse/register`. Builderbase handles sign-in
-and the application/dashboard flow. No API integration is needed for this link.
-Seven FAQs sit between the timeline and application section. Native details and
+Modal, Redberry and Encode Club appear in a separate Partners row with the
+supplied logos. Redberry and Encode Club sit on light backplates for contrast.
+Five participant FAQs use native details and
 summary controls work with keyboard, touch and without JavaScript. The section
 fills at least the viewport and grows as answers open. Questions go to
 `info@uclai.co.uk` throughout the page.
@@ -52,8 +52,7 @@ coalesced input and the latest position. It fades over 220ms, caps live pixels a
 The native cursor, touch gestures and reduced-motion support are preserved.
 
 Each main section fills at least the current viewport and grows for longer
-content. Registration uses a heading above the timeline, with vertical steps
-on phones. The persistent top navigation uses browser-native smooth scrolling
+content. The timetable uses two day columns on desktop and stacks on phones. The persistent top navigation uses browser-native smooth scrolling
 and respects reduced motion; bottom previous/next controls have been removed.
 
 ## Run locally
